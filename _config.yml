@@ -2,6 +2,6 @@ title: hfcmovies
 description: Honest Movie Reviews
 theme: minima
 url: "https://narpatprihar2004-boop.github.io" # Aapka URL
-baseurl: "" # Agar repo ka naam alag hai to yaha likho "/reponame", nahi to khali choro
+baseurl: "hfcmovies" # Agar repo ka naam alag hai to yaha likho "/reponame", nahi to khali choro
 permalink: /:title/
 markdown: kramdown
