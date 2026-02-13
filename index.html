@@ -1,26 +1,41 @@
----
-layout: default
-title: Home
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
-<div class="section-title">Latest Reviews</div>
+    <header>
+        <div class="nav-container">
+            <a href="{{ site.baseurl }}/" class="logo">hfc<span>movies</span></a>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search movies...">
+                <button class="search-btn">Go</button>
+            </div>
+            
+            <div class="search-icon-mobile" style="display:none;">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </header>
 
-{% for post in paginator.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="list-card">
-    <div class="card-img-box">
-        <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}" loading="lazy">
-    </div>
-    <div class="card-content">
-        <h3 class="card-title">{{ post.title }}</h3>
-        <span class="tag-pill">{{ post.year }} MOVIES</span>
-    </div>
-</a>
-{% endfor %}
+    <main class="container">
+        {{ content }}
+    </main>
 
-{% if paginator.total_pages > 1 %}
-<div style="text-align: center; margin-top: 30px;">
-    {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" style="background: #333; color: white; padding: 10px 30px; border-radius: 50px; font-size: 14px;">Next Page →</a>
-    {% endif %}
-</div>
-{% endif %}
+    <footer>
+        <div class="footer-links">
+            <a href="{{ site.baseurl }}/privacy-policy/">Privacy</a>
+            <a href="{{ site.baseurl }}/dmca/">DMCA</a>
+            <a href="{{ site.baseurl }}/contact/">Contact</a>
+        </div>
+        <p style="font-size: 12px; color: #999;">&copy; 2026 hfcmovies. Optimized for Mobile.</p>
+    </footer>
+
+</body>
+</html>
