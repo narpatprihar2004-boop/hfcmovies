@@ -1,15 +1,10 @@
 title: hfcmovies
-description: Premium Movie Reviews & Downloads
+description: Premium Movie Database
 url: "https://narpatprihar2004-boop.github.io"
-baseurl: "/hfcmovies"
+baseurl: ""  # <-- ISE KHALI RAKHO (Do not put /hfcmovies)
 theme: minima
 permalink: /:title/
-markdown: kramdown
-
-# 10,000 Posts Handling
+paginate: 20
 plugins:
   - jekyll-paginate
   - jekyll-seo-tag
-
-paginate: 12  # Ek page par sirf 12 movies dikhengi, baki Next page par
-paginate_path: "/page:num/"
