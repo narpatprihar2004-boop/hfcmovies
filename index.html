@@ -3,31 +3,24 @@ layout: default
 title: Home
 ---
 
-<div class="section-head">Latest Reviews</div>
+<div class="section-title">Latest Reviews</div>
 
 {% for post in paginator.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="blog-card">
-    <div class="card-img-wrap">
+<a href="{{ site.baseurl }}{{ post.url }}" class="list-card">
+    <div class="card-img-box">
         <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}" loading="lazy">
     </div>
     <div class="card-content">
         <h3 class="card-title">{{ post.title }}</h3>
-        <div class="card-meta">
-            <span class="badge">{{ post.year }}</span>
-            <span class="badge" style="color: #D32F2F;">{{ post.quality }}</span>
-        </div>
-        <p class="card-excerpt">{{ post.excerpt | strip_html }}</p>
+        <span class="tag-pill">{{ post.year }} MOVIES</span>
     </div>
 </a>
 {% endfor %}
 
 {% if paginator.total_pages > 1 %}
 <div style="text-align: center; margin-top: 30px;">
-    {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path }}" class="btn" style="background: #555;">&laquo; Prev</a>
-    {% endif %}
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="btn">Next &raquo;</a>
+    <a href="{{ paginator.next_page_path | relative_url }}" style="background: #333; color: white; padding: 10px 30px; border-radius: 50px; font-size: 14px;">Next Page →</a>
     {% endif %}
 </div>
 {% endif %}
