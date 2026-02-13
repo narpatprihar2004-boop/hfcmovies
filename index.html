@@ -1,41 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+---
+layout: default
+title: Home
+---
 
-    <header>
-        <div class="nav-container">
-            <a href="{{ site.baseurl }}/" class="logo">hfc<span>movies</span></a>
-            
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search movies...">
-                <button class="search-btn">Go</button>
-            </div>
-            
-            <div class="search-icon-mobile" style="display:none;">
-                <i class="fas fa-search"></i>
-            </div>
+<div class="section-title">Latest Reviews</div>
+
+{% for post in paginator.posts %}
+<a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
+    <div class="poster-wrapper">
+        <img src="{{ post.image }}" class="poster-img" alt="{{ post.title }}" loading="lazy">
+    </div>
+    <div class="content">
+        <h3 class="title">{{ post.title }}</h3>
+        <div class="meta-tags">
+            <span class="tag quality">{{ post.quality }}</span>
+            <span class="tag">{{ post.year }}</span>
         </div>
-    </header>
+        <p class="desc-preview">{{ post.excerpt | strip_html }}</p>
+    </div>
+</a>
+{% endfor %}
 
-    <main class="container">
-        {{ content }}
-    </main>
-
-    <footer>
-        <div class="footer-links">
-            <a href="{{ site.baseurl }}/privacy-policy/">Privacy</a>
-            <a href="{{ site.baseurl }}/dmca/">DMCA</a>
-            <a href="{{ site.baseurl }}/contact/">Contact</a>
-        </div>
-        <p style="font-size: 12px; color: #999;">&copy; 2026 hfcmovies. Optimized for Mobile.</p>
-    </footer>
-
-</body>
-</html>
+{% if paginator.total_pages > 1 %}
+<div style="text-align: center; margin-top: 30px;">
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" class="dl-btn" style="padding: 10px 25px; font-size: 13px;">Next Page →</a>
+    {% endif %}
+</div>
+{% endif %}
