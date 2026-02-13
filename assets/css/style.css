@@ -1,113 +1,68 @@
-/* --- 1. GOOGLE FONTS & RESET --- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-:root {
-    --primary: #E50914; /* Netflix Red */
-    --dark: #141414;
-    --light: #FFFFFF;
-    --gray: #F5F7FA;
-    --text: #333;
-    --text-light: #777;
-    --shadow: 0 4px 15px rgba(0,0,0,0.05);
+/* --- HOME PAGE LIST --- */
+.cat-scroll { 
+    display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; scrollbar-width: none; 
+}
+.cat-tag { 
+    white-space: nowrap; background: white; padding: 8px 15px; border-radius: 50px; 
+    font-size: 13px; font-weight: 700; color: var(--dark); border: 1px solid var(--border); 
+    display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-body {
-    background-color: var(--gray);
-    color: var(--text);
-    padding-top: 80px; /* Space for fixed header */
-    line-height: 1.6;
+.movie-list-card {
+    display: flex; background: white; border-radius: 12px; padding: 10px; 
+    margin-bottom: 15px; border: 1px solid var(--border); align-items: center; gap: 12px;
 }
+.list-img { width: 60px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #eee; }
+.list-info h3 { font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.3; margin-bottom: 5px; }
+.list-meta { font-size: 12px; color: #64748b; }
+.pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.pill-qual { background: #dbeafe; color: #1e40af; }
+.pill-year { background: #f1f5f9; color: #475569; }
 
-a { text-decoration: none; color: inherit; transition: 0.3s; }
-ul { list-style: none; }
+/* --- POST PAGE ADVANCED --- */
+.post-hero { width: 100%; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-/* --- 2. RESPONSIVE NAVBAR --- */
-header {
-    position: fixed; top: 0; left: 0; right: 0; height: 70px; z-index: 1000;
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0,0,0,0.05); box-shadow: var(--shadow);
-    display: flex; align-items: center; justify-content: center;
-}
+/* 1. Cool Table */
+.info-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.info-table td { padding: 12px 15px; border-bottom: 1px solid var(--border); font-size: 14px; }
+.info-table td:first-child { font-weight: 700; color: var(--dark); width: 35%; background: #f8fafc; }
+.info-table tr:last-child td { border-bottom: none; }
 
-.nav-container {
-    width: 90%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center;
-}
+/* 2. Cast Section */
+.cast-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin: 15px 0 25px; }
+.cast-card { background: white; padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center; }
+.cast-role { font-size: 12px; color: #64748b; display: block; }
+.cast-name { font-size: 13px; font-weight: 700; color: var(--dark); }
 
-.logo { font-size: 24px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
-.logo span { color: var(--primary); }
+/* 3. News Section */
+.news-box { border-left: 4px solid var(--primary); background: white; padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+.news-source { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 5px; display: block; }
+.news-link { color: var(--primary); font-weight: 600; font-size: 14px; text-decoration: underline; }
 
-/* Search Bar Styling */
-.search-box { position: relative; width: 100%; max-width: 350px; display: flex; }
-.search-input {
-    width: 100%; padding: 10px 20px; border-radius: 50px; border: 1px solid #eee;
-    background: #f0f2f5; outline: none; transition: 0.3s;
-}
-.search-input:focus { background: white; border-color: var(--primary); box-shadow: 0 0 10px rgba(229, 9, 20, 0.1); }
-.search-btn {
-    position: absolute; right: 5px; top: 3px; background: var(--primary); color: white;
-    border: none; padding: 7px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer;
-}
+/* 4. Comments Section */
+.comment-box { display: flex; gap: 10px; background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid var(--border); }
+.user-avatar { width: 40px; height: 40px; background: #cbd5e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; flex-shrink: 0; }
+.comm-body { flex: 1; }
+.comm-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.comm-user { font-weight: 700; font-size: 14px; color: var(--dark); }
+.comm-platform { font-size: 11px; color: #64748b; display: flex; align-items: center; gap: 4px; }
+.comm-text { font-size: 13px; color: #334155; line-height: 1.4; }
 
-/* --- 3. MAIN LAYOUT --- */
-.container { max-width: 900px; margin: 20px auto; padding: 0 20px; }
-.section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px; }
+/* 5. Where to Watch */
+.watch-grid { display: flex; gap: 10px; margin-bottom: 30px; }
+.watch-btn { flex: 1; background: white; border: 1px solid var(--border); padding: 10px; text-align: center; border-radius: 8px; font-weight: 600; font-size: 13px; }
+.watch-btn img { height: 20px; margin: 0 auto 5px; }
 
-/* --- 4. LIST CARD (RESPONSIVE) --- */
-.movie-card {
-    display: flex; background: white; border-radius: 12px; overflow: hidden;
-    margin-bottom: 20px; box-shadow: var(--shadow); border: 1px solid white;
-    transition: transform 0.3s, box-shadow 0.3s; position: relative;
-}
+/* 6. Download Logic UI */
+.dl-wrapper { background: #fff; padding: 20px; border-radius: 12px; border: 2px dashed #cbd5e1; text-align: center; margin-top: 30px; }
+.dl-note { font-size: 12px; color: #ef4444; background: #fef2f2; padding: 10px; border-radius: 6px; margin-bottom: 15px; }
+.api-btn { background: var(--primary); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 700; border: none; cursor: pointer; width: 100%; font-size: 16px; box-shadow: 0 5px 15px rgba(0,123,255,0.3); }
+.api-btn:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; }
 
-.movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border-color: #eee;
-}
+/* 7. DMCA Box */
+.dmca-box { margin-top: 40px; border: 1px solid #eab308; background: #fefce8; padding: 15px; border-radius: 8px; font-size: 12px; color: #854d0e; text-align: center; }
+.dmca-link { font-weight: 700; text-decoration: underline; color: #854d0e; }
 
-/* Image styling */
-.card-img-wrap { width: 140px; min-width: 140px; height: auto; position: relative; overflow: hidden; }
-.card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-.movie-card:hover .card-img { transform: scale(1.1); }
-
-/* Content styling */
-.card-info { padding: 20px; display: flex; flex-direction: column; justify-content: center; width: 100%; }
-.card-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; color: #222; }
-.movie-card:hover .card-title { color: var(--primary); }
-
-.card-meta { display: flex; gap: 10px; font-size: 12px; color: #777; margin-bottom: 5px; }
-.badge { background: #ffebee; color: var(--primary); padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; }
-
-/* --- 5. POST PAGE --- */
-.post-box { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow); }
-.hero-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; }
-.download-btn {
-    display: block; background: var(--primary); color: white; text-align: center;
-    padding: 15px; border-radius: 8px; font-weight: 700; text-transform: uppercase;
-    margin-top: 30px; transition: 0.3s;
-}
-.download-btn:hover { background: #b71c1c; box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3); }
-
-/* --- 6. FOOTER (ADSENSE) --- */
-footer { background: white; padding: 40px 20px; text-align: center; margin-top: 50px; border-top: 1px solid #eee; }
-.footer-links { margin-bottom: 15px; }
-.footer-links a { color: #666; margin: 0 10px; font-size: 14px; font-weight: 500; }
-.footer-links a:hover { color: var(--primary); }
-
-/* --- 7. MOBILE RESPONSIVENESS (IMPORTANT) --- */
-@media (max-width: 768px) {
-    .nav-container { width: 95%; }
-    .search-box { display: none; } /* Search hide on mobile header to save space */
-    .search-icon-mobile { display: block; font-size: 20px; color: #333; cursor: pointer; }
-    
-    .movie-card { min-height: 120px; }
-    .card-img-wrap { width: 110px; min-width: 110px; } /* Smaller image on mobile */
-    .card-info { padding: 15px; }
-    .card-title { font-size: 15px; } /* Smaller font on mobile */
-    .card-meta { font-size: 11px; }
-    
-    .post-box { padding: 20px; }
-    .logo { font-size: 20px; }
-}
+/* 8. Maybe You Like */
+.related-box { margin: 25px 0; }
+.related-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: #64748b; text-transform: uppercase; }
