@@ -1,7 +1,7 @@
 title: hfcmovies
 description: Premium Movie Database
 url: "https://narpatprihar2004-boop.github.io"
-baseurl: ""  # <-- ISE KHALI RAKHO (Do not put /hfcmovies)
+baseurl: "/hfcmovies" # Agar repo ka naam hfcmovies hai to ye slash ke sath likho
 theme: minima
 permalink: /:title/
 paginate: 20
