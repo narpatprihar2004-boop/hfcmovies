@@ -3,34 +3,43 @@ layout: default
 title: Home
 ---
 
-<h4 style="margin-bottom: 15px; color: #334155; font-weight: 800;">🔥 LATEST UPDATES</h4>
+<div class="section-head">🔥🔥 TRENDING UPDATES 🔥🔥</div>
 
-{% for post in paginator.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="movie-list-card">
-    <img src="{{ post.image }}" class="list-img" alt="{{ post.title }}" loading="lazy">
-    <div class="list-info">
-        <h3>{{ post.title }}</h3>
-        <div class="list-meta">
-            <span class="pill pill-qual">{{ post.quality }}</span>
-            <span class="pill pill-year">{{ post.year }}</span>
-        </div>
+{% for post in site.posts limit:20 %}
+<a href="{{ site.baseurl }}{{ post.url }}" class="movie-item">
+    <img src="{{ post.image }}" class="m-thumb" alt="poster" loading="lazy">
+    <div class="m-info">
+        <div class="m-title">{{ post.title }}</div>
+        
+        {% if post.tags contains 'South' %}
+            <span class="m-tag bg-blue">South Hindi Dubbed</span>
+        {% elsif post.tags contains 'Bollywood' %}
+            <span class="m-tag bg-green">Bollywood Movie</span>
+        {% elsif post.tags contains 'Web Series' %}
+            <span class="m-tag bg-pink">Web Series</span>
+        {% else %}
+            <span class="m-tag bg-red">{{ post.quality }}</span>
+        {% endif %}
     </div>
 </a>
+{% else %}
+    <div style="padding:20px; text-align:center;">
+        <h3>No Movies Found!</h3>
+        <p>Please add a .md file in _posts folder.</p>
+    </div>
 {% endfor %}
 
-<h4 style="margin: 30px 0 15px; color: #334155; font-weight: 800;">📁 BROWSE CATEGORIES</h4>
-<div class="cat-scroll">
-    {% for category in site.categories %}
-    <a href="{{ site.baseurl }}/category/{{ category | first | slugify }}/" class="cat-tag">
-        <i class="fas fa-folder"></i> {{ category | first | capitalize }}
-    </a>
-    {% endfor %}
+<div class="section-head">📁 BROWSE CATEGORIES</div>
+<div class="folder-scroll">
+    <a href="#" class="folder-btn"><i class="fas fa-folder" style="color:#ffa502"></i> South Indian</a>
+    <a href="#" class="folder-btn"><i class="fas fa-folder" style="color:#ffa502"></i> Bollywood</a>
+    <a href="#" class="folder-btn"><i class="fas fa-folder" style="color:#ffa502"></i> Hollywood</a>
+    <a href="#" class="folder-btn"><i class="fas fa-folder" style="color:#ffa502"></i> Web Series</a>
+    <a href="#" class="folder-btn"><i class="fas fa-folder" style="color:#ffa502"></i> Dual Audio</a>
 </div>
 
-{% if paginator.total_pages > 1 %}
-<div style="text-align: center; margin-top: 30px;">
+<div style="text-align:center; padding: 20px;">
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="btn-back" style="background:var(--primary);">Next Page &raquo;</a>
+    <a href="{{ paginator.next_page_path }}" class="m-tag bg-blue" style="font-size:12px; padding:8px 20px;">Next Page >></a>
     {% endif %}
 </div>
-{% endif %}
