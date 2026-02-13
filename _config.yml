@@ -1,0 +1,7 @@
+title: hfcmovies
+description: Best Movie Reviews & High Quality Downloads
+url: "https://hfcmovies.fun" 
+baseurl: ""
+permalink: /:title/
+markdown: kramdown
+
