@@ -3,36 +3,34 @@ layout: default
 title: Home
 ---
 
-<div class="cat-header">
-    <span>🔥 Latest Updates</span>
-    <span>More &raquo;</span>
-</div>
+<h4 style="margin-bottom: 15px; color: #334155; font-weight: 800;">🔥 LATEST UPDATES</h4>
 
 {% for post in paginator.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="file-card">
-    <img src="{{ post.image }}" class="f-img" alt="img" loading="lazy">
-    
-    <div class="f-info">
-        <div class="f-title">{{ post.title }}</div>
-        
-        <div class="f-meta">
-            {% if post.quality contains '1080p' %}
-                <span class="tag t-qual" style="background:#dc3545">FHD</span>
-            {% else %}
-                <span class="tag t-qual">HD</span>
-            {% endif %}
-            
-            <span class="tag t-year">{{ post.year }}</span>
-            <span class="tag t-lang">Dual Audio</span>
+<a href="{{ site.baseurl }}{{ post.url }}" class="movie-list-card">
+    <img src="{{ post.image }}" class="list-img" alt="{{ post.title }}" loading="lazy">
+    <div class="list-info">
+        <h3>{{ post.title }}</h3>
+        <div class="list-meta">
+            <span class="pill pill-qual">{{ post.quality }}</span>
+            <span class="pill pill-year">{{ post.year }}</span>
         </div>
     </div>
 </a>
 {% endfor %}
 
+<h4 style="margin: 30px 0 15px; color: #334155; font-weight: 800;">📁 BROWSE CATEGORIES</h4>
+<div class="cat-scroll">
+    {% for category in site.categories %}
+    <a href="{{ site.baseurl }}/category/{{ category | first | slugify }}/" class="cat-tag">
+        <i class="fas fa-folder"></i> {{ category | first | capitalize }}
+    </a>
+    {% endfor %}
+</div>
+
 {% if paginator.total_pages > 1 %}
-<div style="padding: 15px; text-align: center; background: #f9f9f9; border-top: 1px solid #eee;">
+<div style="text-align: center; margin-top: 30px;">
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="s-btn" style="padding: 8px 15px; border-radius: 4px;">Next Page >></a>
+    <a href="{{ paginator.next_page_path | relative_url }}" class="btn-back" style="background:var(--primary);">Next Page &raquo;</a>
     {% endif %}
 </div>
 {% endif %}
