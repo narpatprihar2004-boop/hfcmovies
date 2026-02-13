@@ -1,70 +1,80 @@
-/* --- Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-
+/* --- Modern Variables --- */
 :root {
-    --primary: #d32f2f; /* Professional Red */
-    --dark: #222;
-    --light-bg: #f8f9fa; /* Very Light Grey */
-    --white: #ffffff;
-    --border: #e0e0e0;
-    --text: #444;
+    --bg: #0d1117;        /* GitHub Dark Dim */
+    --card-bg: #161b22;   /* Slightly lighter */
+    --primary: #58a6ff;   /* Tech Blue (Professional) */
+    --accent: #ff7b72;    /* Soft Red */
+    --text: #c9d1d9;
+    --border: #30363d;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+body { background-color: var(--bg); color: var(--text); padding-top: 80px; } /* Space for fixed header */
 
-body { background-color: var(--light-bg); color: var(--text); line-height: 1.6; }
-a { text-decoration: none; color: inherit; transition: 0.2s; }
-a:hover { color: var(--primary); }
-
-/* --- Professional Navbar --- */
+/* --- 1. Glassmorphism Header --- */
 header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: fixed; top: 0; left: 0; right: 0; height: 70px; z-index: 1000;
+    background: rgba(13, 17, 23, 0.8); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); display: flex; align-items: center;
 }
-.nav-container {
-    max-width: 1000px; margin: 0 auto; padding: 0 20px;
-    height: 70px; display: flex; align-items: center; justify-content: space-between;
+.nav-width {
+    width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; justify-content: space-between; align-items: center;
 }
-.logo { font-size: 24px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
+.logo { font-size: 26px; font-weight: 800; color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
 .logo span { color: var(--primary); }
 
-.nav-links { display: flex; gap: 20px; }
-.nav-links a { font-size: 14px; font-weight: 600; color: #555; text-transform: uppercase; }
-.nav-links a:hover { color: var(--primary); }
-
-/* --- Main Layout --- */
-.container { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 60vh; }
-.page-heading { font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); display: inline-block; }
-
-/* --- Review List Card (Blog Style) --- */
-.card {
-    display: flex; background: var(--white); border: 1px solid var(--border);
-    border-radius: 8px; overflow: hidden; margin-bottom: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
+/* --- 2. Advanced Search Bar --- */
+.search-wrapper { position: relative; width: 100%; max-width: 400px; }
+.search-input {
+    width: 100%; background: #010409; border: 1px solid var(--border);
+    color: white; padding: 10px 15px; border-radius: 6px; outline: none; transition: 0.3s;
 }
-.card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); border-color: #ccc; }
+.search-input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(88, 166, 255, 0.2); }
+#search-results {
+    position: absolute; top: 45px; left: 0; right: 0; background: var(--card-bg);
+    border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: none; max-height: 400px; overflow-y: auto; z-index: 1001;
+}
+.result-item { display: flex; padding: 10px; border-bottom: 1px solid var(--border); color: var(--text); text-decoration: none; gap: 10px; align-items: center; }
+.result-item:hover { background: #1f2428; }
+.result-img { width: 40px; height: 50px; object-fit: cover; border-radius: 4px; }
 
-.card-img-wrap { width: 140px; flex-shrink: 0; background: #eee; }
-.card-img { width: 100%; height: 100%; object-fit: cover; }
+/* --- 3. The Grid Layout (Scalable) --- */
+.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+.grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
 
-.card-content { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-.card-title { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 8px; line-height: 1.3; }
-.meta { font-size: 12px; color: #777; margin-bottom: 10px; font-weight: 600; }
-.meta span { background: #eee; padding: 2px 8px; border-radius: 4px; margin-right: 5px; }
-.excerpt { font-size: 14px; color: #666; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* --- 4. Pro Cards --- */
+.card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; position: relative;
+    text-decoration: none; color: inherit; display: flex; flex-direction: column;
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); border-color: var(--primary); }
 
-/* --- Footer (Adsense Requirement) --- */
-footer { background: var(--white); border-top: 1px solid var(--border); padding: 40px 0; margin-top: 50px; text-align: center; }
-.footer-links { margin-bottom: 15px; }
-.footer-links a { margin: 0 10px; font-size: 13px; color: #666; font-weight: 600; }
-.copyright { font-size: 12px; color: #999; }
+.card-img-container { position: relative; width: 100%; height: 180px; overflow: hidden; }
+.card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.card:hover .card-img { transform: scale(1.1); }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .nav-links { display: none; } /* Mobile Menu hidden for simplicity */
-    .card-img-wrap { width: 100px; }
-    .card-title { font-size: 16px; }
-    .card-content { padding: 15px; }
+/* Floating Badges */
+.quality-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: var(--primary); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; border: 1px solid var(--primary); backdrop-filter: blur(4px); }
+
+.card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+.card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: white; line-height: 1.4; }
+.card-meta { font-size: 12px; color: #8b949e; margin-top: auto; display: flex; justify-content: space-between; }
+
+/* --- 5. Pagination Buttons (Next/Prev) --- */
+.pagination { display: flex; justify-content: center; gap: 10px; margin-top: 50px; }
+.page-btn { padding: 10px 20px; background: var(--card-bg); border: 1px solid var(--border); color: white; text-decoration: none; border-radius: 6px; transition: 0.3s; }
+.page-btn:hover { background: var(--primary); border-color: var(--primary); }
+
+/* Mobile Fixes */
+@media (max-width: 768px) {
+    .nav-width { flex-direction: column; gap: 10px; height: auto; padding: 15px; }
+    header { height: auto; position: relative; } /* Unstick on mobile if needed */
+    body { padding-top: 0; }
+    .search-wrapper { width: 100%; }
 }
