@@ -4,113 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% seo %}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. PRO VARIABLES --- */
+        /* --- 1. ULTRA WHITE THEME VARIABLES --- */
         :root {
             --primary: #E50914; /* Netflix Red */
-            --bg: #F5F7FA;      /* Light Grey (Premium feel) */
+            --bg: #F2F4F8;      /* Premium Light Grey */
             --card: #FFFFFF;    /* Pure White */
-            --text: #333333;
-            --text-light: #666666;
-            --border: #EAEAEA;
+            --text-main: #111111;
+            --text-sec: #555555;
+            --border: #E6E9EE;
+            --shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding-top: 80px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            padding-top: 80px; 
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
         a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* --- 2. PREMIUM NAVBAR --- */
+        /* --- 2. GLASS HEADER (STICKY) --- */
         header {
-            position: fixed; top: 0; left: 0; right: 0; height: 75px; z-index: 1000;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            position: fixed; top: 0; left: 0; right: 0; height: 70px; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
-        .nav-inner { width: 95%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo { font-size: 24px; font-weight: 800; color: #222; letter-spacing: -0.5px; }
-        .logo span { color: var(--primary); }
 
-        /* Search Bar (Cooler than screenshot) */
-        .search-wrap { position: relative; width: 100%; max-width: 350px; }
+        .nav-inner { width: 95%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .brand { font-size: 24px; font-weight: 900; color: #222; letter-spacing: -1px; }
+        .brand span { color: var(--primary); }
+
+        /* Search Bar */
+        .search-wrap { position: relative; width: 100%; max-width: 320px; }
         .search-inp {
-            width: 100%; background: #F0F2F5; border: 1px solid transparent;
-            padding: 12px 20px; border-radius: 50px; outline: none; font-size: 14px;
-            transition: 0.3s;
+            width: 100%; background: #EFF2F5; border: 1px solid transparent;
+            padding: 10px 40px 10px 20px; border-radius: 50px; font-size: 14px; outline: none; transition: 0.3s;
         }
-        .search-inp:focus { background: #fff; border-color: var(--primary); box-shadow: 0 4px 15px rgba(229, 9, 20, 0.1); }
-        .search-btn {
-            position: absolute; right: 5px; top: 3px; background: var(--primary);
-            color: white; border: none; padding: 9px 20px; border-radius: 50px;
-            font-weight: 600; cursor: pointer; font-size: 13px;
-        }
+        .search-inp:focus { background: white; border-color: var(--primary); box-shadow: 0 0 10px rgba(229, 9, 20, 0.1); }
+        .search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #888; }
 
         /* Live Results */
         #search-results {
-            position: absolute; top: 55px; left: 0; right: 0; background: white;
-            border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            display: none; max-height: 300px; overflow-y: auto; border: 1px solid #eee; z-index: 999;
+            position: absolute; top: 50px; left: 0; right: 0; background: white;
+            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none; max-height: 300px; overflow-y: auto; border: 1px solid var(--border); z-index: 999;
         }
-        .res-item { display: flex; padding: 12px; border-bottom: 1px solid #f0f0f0; align-items: center; gap: 12px; }
-        .res-item:hover { background: #fafafa; }
-        .res-img { width: 45px; height: 60px; object-fit: cover; border-radius: 6px; }
+        .res-item { display: flex; padding: 10px; border-bottom: 1px solid #f0f0f0; align-items: center; gap: 10px; }
+        .res-item:hover { background: #f9f9f9; }
+        .res-img { width: 40px; height: 50px; object-fit: cover; border-radius: 4px; }
 
-        /* --- 3. LIST STYLE CARD (THE HERO) --- */
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #222; border-left: 4px solid var(--primary); padding-left: 12px; }
-
-        .list-card {
-            display: flex; background: var(--card); border-radius: 16px;
-            overflow: hidden; margin-bottom: 20px; position: relative;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid white;
-            transition: transform 0.3s, box-shadow 0.3s;
+        /* --- 3. CONTAINER & TITLES --- */
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+        .section-title { 
+            font-size: 18px; font-weight: 700; margin-bottom: 20px; 
+            border-left: 4px solid var(--primary); padding-left: 12px; color: #333;
         }
-        .list-card:hover {
+
+        /* --- 4. LIST CARD (Your Requested Layout) --- */
+        .movie-card {
+            display: flex; background: var(--card); border-radius: 12px;
+            overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border);
+            box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .movie-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            border-color: #f0f0f0;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            border-color: #ddd;
         }
 
-        /* Image (Left) */
-        .card-img-box { width: 130px; min-width: 130px; height: auto; position: relative; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        /* Left Image */
+        .poster-wrapper { width: 120px; min-width: 120px; position: relative; }
+        .poster-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .movie-card:hover .poster-img { transform: scale(1.1); }
 
-        /* Content (Right) */
-        .card-content { padding: 18px; display: flex; flex-direction: column; justify-content: center; width: 100%; }
+        /* Right Content */
+        .content { padding: 16px; display: flex; flex-direction: column; justify-content: center; width: 100%; }
         
-        .card-title { font-size: 17px; font-weight: 700; color: #222; margin-bottom: 8px; line-height: 1.4; }
-        .list-card:hover .card-title { color: var(--primary); }
+        .title { font-size: 17px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; color: #222; }
+        .movie-card:hover .title { color: var(--primary); }
 
-        .tag-pill {
-            display: inline-block; background: #FFF0F1; color: var(--primary);
-            font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
-            margin-top: 5px; width: fit-content; text-transform: uppercase;
+        .meta-tags { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+        .tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: #eee; color: #555; font-weight: 600; }
+        .tag.quality { background: #FFF0F1; color: var(--primary); }
+        
+        .desc-preview { font-size: 13px; color: #666; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.5; }
+
+        /* --- 5. POST PAGE (COOL READING UI) --- */
+        .post-box { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .hero-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 25px; }
+        .post-h1 { font-size: 26px; font-weight: 800; color: #111; margin-bottom: 15px; line-height: 1.3; }
+
+        .download-box {
+            background: #FAFAFA; border: 1px dashed #CCC; padding: 25px; 
+            border-radius: 10px; text-align: center; margin-top: 30px;
         }
-
-        /* --- 4. POST PAGE --- */
-        .post-box { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
-        .hero-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px; margin-bottom: 25px; }
-        .download-btn {
-            display: block; background: var(--primary); color: white; text-align: center;
-            padding: 16px; border-radius: 10px; font-weight: 700; margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.2);
+        .dl-btn {
+            display: inline-block; background: var(--primary); color: white;
+            padding: 12px 30px; border-radius: 50px; font-weight: 700; 
+            margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3); transition: 0.3s;
         }
+        .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(229, 9, 20, 0.4); }
 
-        /* --- 5. FOOTER (Adsense) --- */
-        footer { background: white; border-top: 1px solid #eee; padding: 40px 20px; margin-top: 50px; text-align: center; }
-        .f-links { margin-bottom: 15px; }
-        .f-links a { color: #666; font-size: 13px; margin: 0 10px; font-weight: 500; }
+        /* --- 6. FOOTER (ADSENSE) --- */
+        footer { background: white; border-top: 1px solid var(--border); padding: 40px 20px; margin-top: 50px; text-align: center; }
+        .f-links a { color: #666; margin: 0 10px; font-size: 13px; font-weight: 500; }
         .f-links a:hover { color: var(--primary); }
-
-        /* MOBILE FIX */
+        
+        /* MOBILE OPTIMIZATION */
         @media (max-width: 600px) {
-            .card-img-box { width: 100px; min-width: 100px; }
-            .card-title { font-size: 15px; }
-            .card-content { padding: 12px; }
-            .search-wrap { display: none; } /* Mobile me search icon lagana padega baad me */
+            .poster-wrapper { width: 100px; min-width: 100px; }
+            .title { font-size: 15px; }
+            .content { padding: 12px; }
+            .desc-preview { display: none; } /* Mobile pe description hide kar di clean look ke liye */
+            .search-wrap { display: none; } /* Search icon header me dikhayenge bas */
+            .post-box { padding: 20px; }
+            .post-h1 { font-size: 22px; }
         }
     </style>
 </head>
@@ -118,11 +140,11 @@
 
     <header>
         <div class="nav-inner">
-            <a href="{{ site.baseurl }}/" class="logo">hfc<span>movies</span></a>
+            <a href="{{ site.baseurl }}/" class="brand">hfc<span>movies</span></a>
             
             <div class="search-wrap">
                 <input type="text" id="searchInput" class="search-inp" placeholder="Search movies...">
-                <button class="search-btn">Search</button>
+                <i class="fas fa-search search-icon"></i>
                 <div id="search-results"></div>
             </div>
         </div>
@@ -139,10 +161,11 @@
             <a href="/contact/">Contact</a>
             <a href="/about/">About</a>
         </div>
-        <p style="font-size: 12px; color: #999;">&copy; 2026 hfcmovies. Designed for Movie Lovers.</p>
+        <p style="font-size: 12px; color: #999; margin-top: 15px;">&copy; 2026 hfcmovies. Optimized for Speed.</p>
     </footer>
 
     <script>
+        // Search Logic
         const input = document.getElementById('searchInput');
         const box = document.getElementById('search-results');
         let movies = [];
