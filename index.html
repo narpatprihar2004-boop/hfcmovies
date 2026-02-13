@@ -3,22 +3,36 @@ layout: default
 title: Home
 ---
 
+<div class="cat-header">
+    <span>🔥 Latest Updates</span>
+    <span>More &raquo;</span>
+</div>
+
 {% for post in paginator.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
-    <div class="card-img-wrap">
-        <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}">
-    </div>
-    <div class="card-content">
-        <h3 class="card-title">{{ post.title }}</h3>
-        <span class="pill-tag">{{ post.year }} MOVIES</span>
+<a href="{{ site.baseurl }}{{ post.url }}" class="file-card">
+    <img src="{{ post.image }}" class="f-img" alt="img" loading="lazy">
+    
+    <div class="f-info">
+        <div class="f-title">{{ post.title }}</div>
+        
+        <div class="f-meta">
+            {% if post.quality contains '1080p' %}
+                <span class="tag t-qual" style="background:#dc3545">FHD</span>
+            {% else %}
+                <span class="tag t-qual">HD</span>
+            {% endif %}
+            
+            <span class="tag t-year">{{ post.year }}</span>
+            <span class="tag t-lang">Dual Audio</span>
+        </div>
     </div>
 </a>
 {% endfor %}
 
 {% if paginator.total_pages > 1 %}
-<div style="text-align: center; margin-top: 30px;">
+<div style="padding: 15px; text-align: center; background: #f9f9f9; border-top: 1px solid #eee;">
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="pill-tag" style="background:#333; color:white;">Next Page →</a>
+    <a href="{{ paginator.next_page_path | relative_url }}" class="s-btn" style="padding: 8px 15px; border-radius: 4px;">Next Page >></a>
     {% endif %}
 </div>
 {% endif %}
