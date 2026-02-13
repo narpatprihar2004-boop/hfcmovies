@@ -4,173 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 1. CORE VARIABLES --- */
+        /* --- CORE VARIABLES --- */
         :root {
-            --primary: #E50914; /* Red */
-            --bg: #F8F9FA;      /* Light Background */
-            --card: #FFFFFF;    /* White Card */
-            --text: #222;
-            --gray: #666;
-            --shadow: 0 8px 30px rgba(0,0,0,0.05); /* Soft Shadow like reference */
+            --bg: #F0F2F5;
+            --white: #ffffff;
+            --blue-link: #0056b3; /* Filmyfiy Blue */
+            --border: #dcdcdc;
+            --text: #333;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Public Sans', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 30px; }
+        a { text-decoration: none; color: inherit; }
 
-        /* --- 2. HEADER (NOT STICKY) --- */
+        /* --- HEADER --- */
         header {
-            background: white; padding: 20px; text-align: center;
-            border-bottom: 1px solid #eee;
+            background: #1c2331; color: white; padding: 12px; text-align: center;
+            border-bottom: 3px solid #00c4ff;
         }
-        .logo { font-size: 32px; font-weight: 800; color: #222; letter-spacing: -1px; }
-        .logo span { color: var(--primary); }
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+        .logo span { color: #00c4ff; }
 
-        /* --- 3. BIG SEARCH BAR (LIKE REFERENCE) --- */
-        .search-hero {
-            background: white; padding: 20px; text-align: center;
-            margin-bottom: 20px; border-bottom: 1px solid #eee;
+        /* --- SEARCH BAR (FIXED) --- */
+        .search-area { background: #fff; padding: 10px; border-bottom: 1px solid var(--border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .search-box {
+            max-width: 600px; margin: 0 auto; display: flex;
+            border: 1px solid #ccc; border-radius: 4px; overflow: hidden;
         }
-        .search-container {
-            max-width: 600px; margin: 0 auto; display: flex; gap: 10px; position: relative;
+        .s-input {
+            flex: 1; padding: 10px; border: none; outline: none; font-size: 15px;
         }
-        .search-inp {
-            flex: 1; padding: 15px 20px; border: 1px solid #ddd; background: #f9f9f9;
-            border-radius: 8px; font-size: 16px; outline: none;
-        }
-        .search-inp:focus { border-color: var(--primary); background: white; }
-        
-        .search-btn {
-            background: var(--primary); color: white; border: none; padding: 0 25px;
-            border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 16px;
+        .s-btn {
+            background: #0056b3; color: white; border: none; padding: 0 20px; font-weight: bold; cursor: pointer;
         }
 
-        /* Search Results Dropdown */
+        /* --- LIVE SEARCH RESULTS --- */
         #search-results {
-            position: absolute; top: 60px; left: 0; right: 0; background: white;
-            border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            display: none; max-height: 300px; overflow-y: auto; z-index: 999; border: 1px solid #eee; text-align: left;
+            max-width: 600px; margin: 0 auto; background: white; border: 1px solid #ddd;
+            display: none; max-height: 300px; overflow-y: auto;
         }
-        .res-item { display: flex; padding: 10px; border-bottom: 1px solid #f0f0f0; align-items: center; gap: 10px; }
-        .res-item:hover { background: #f5f5f5; }
-        .res-img { width: 50px; height: 60px; object-fit: cover; border-radius: 5px; }
+        .s-item { padding: 10px; border-bottom: 1px solid #eee; display: block; font-size: 13px; color: #0056b3; font-weight: 600; }
+        .s-item:hover { background: #f9f9f9; }
 
-        /* --- 4. RED STRIP (OPTIONAL) --- */
-        .tagline-strip {
-            background: #FFF0F1; color: var(--primary); text-align: center;
-            padding: 10px; font-weight: 600; font-size: 14px; margin-bottom: 30px;
+        /* --- ADSENSE SLOT (PLACEHOLDER) --- */
+        .ad-slot {
+            max-width: 600px; margin: 10px auto; background: #e9e9e9; color: #777;
+            text-align: center; padding: 15px; font-size: 12px; border: 1px dashed #aaa;
         }
 
-        /* --- 5. CARD LAYOUT (EXACTLY LIKE PHOTO) --- */
-        .container { max-width: 800px; margin: 0 auto; padding: 0 15px; }
-
-        .movie-card {
-            display: flex; background: var(--card); border-radius: 20px; /* Rounded like photo */
-            overflow: hidden; margin-bottom: 25px; box-shadow: var(--shadow);
-            border: 1px solid white; align-items: center; padding: 10px;
-            transition: transform 0.2s;
+        /* --- CATEGORY HEADER --- */
+        .cat-header {
+            max-width: 600px; margin: 15px auto 5px; background: #0056b3; color: white;
+            padding: 8px 10px; font-size: 14px; font-weight: 700; text-transform: uppercase;
+            border-radius: 4px 4px 0 0; display: flex; justify-content: space-between;
         }
-        .movie-card:hover { transform: translateY(-3px); }
 
-        /* Image styling */
-        .card-img-wrap { width: 100px; height: 100px; flex-shrink: 0; border-radius: 15px; overflow: hidden; margin-left: 10px; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        /* --- MOVIE LIST (COMPACT & CLEAN) --- */
+        .container { max-width: 600px; margin: 0 auto; background: white; border: 1px solid var(--border); }
 
-        /* Text styling */
-        .card-content { padding: 15px 20px; flex: 1; }
-        .card-title { font-size: 17px; font-weight: 700; color: #222; margin-bottom: 12px; line-height: 1.4; }
+        .file-card {
+            display: flex; padding: 8px; border-bottom: 1px solid #eee; align-items: center;
+            transition: 0.2s;
+        }
+        .file-card:hover { background: #f4faff; }
+
+        .f-img {
+            width: 55px; height: 70px; object-fit: cover; border-radius: 3px;
+            border: 1px solid #ddd; flex-shrink: 0; margin-right: 12px;
+        }
+
+        .f-info { flex: 1; min-width: 0; } /* Fix for text overflow */
         
-        .pill-tag {
-            display: inline-block; background: #FFF0F1; color: var(--primary);
-            font-size: 12px; font-weight: 800; padding: 6px 15px; border-radius: 6px;
-            text-transform: uppercase; letter-spacing: 0.5px;
+        .f-title {
+            font-size: 14px; font-weight: 700; color: var(--blue-link);
+            margin-bottom: 4px; line-height: 1.3;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* Cut long text */
         }
-
-        /* --- 6. POST PAGE --- */
-        .post-box { background: white; padding: 25px; border-radius: 20px; box-shadow: var(--shadow); }
-        .hero-img { width: 100%; border-radius: 15px; margin-bottom: 20px; }
-        .dl-btn {
-            display: block; background: var(--primary); color: white; text-align: center;
-            padding: 15px; border-radius: 10px; font-weight: 700; margin-top: 30px;
+        
+        .f-meta { font-size: 11px; color: #666; display: flex; gap: 5px; flex-wrap: wrap; }
+        
+        .tag {
+            padding: 2px 6px; border-radius: 3px; font-weight: 600; font-size: 10px;
+            color: white; display: inline-block;
         }
+        .t-qual { background: #28a745; } /* Green */
+        .t-year { background: #17a2b8; } /* Cyan */
+        .t-lang { background: #ffc107; color: #333; } /* Yellow */
 
-        /* --- 7. FOOTER --- */
-        footer { text-align: center; margin-top: 50px; color: #888; font-size: 13px; }
-        .f-links a { margin: 0 10px; color: #555; font-weight: 500; }
+        /* --- POST PAGE --- */
+        .post-wrap { padding: 15px; }
+        .hero { width: 100%; max-width: 300px; display: block; margin: 0 auto 15px; border-radius: 5px; }
+        .d-btn {
+            display: block; background: #28a745; color: white; padding: 12px;
+            text-align: center; font-weight: bold; border-radius: 5px; margin-top: 10px;
+        }
+        
+        /* --- FOOTER --- */
+        footer { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
+        .f-links a { color: #333; margin: 0 5px; }
 
-        /* --- MOBILE FIXES --- */
-        @media (max-width: 600px) {
-            .logo { font-size: 28px; }
-            .movie-card { align-items: flex-start; } /* Top align text */
-            .card-img-wrap { width: 90px; height: 110px; margin-top: 10px; } /* Thoda lamba image mobile par */
-            .card-title { font-size: 15px; }
-            .pill-tag { font-size: 10px; padding: 4px 10px; }
-            .search-container { flex-direction: column; } /* Search btn neeche aa jayega */
+        @media(max-width: 400px) {
+            .f-title { white-space: normal; } /* Allow wrap on very small screens */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">hfc<span>movies</span></div>
+        <div class="logo">HFC<span>MOVIES</span></div>
     </header>
 
-    <div class="search-hero">
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-inp" placeholder="Search reviews, movies...">
-            <button class="search-btn">Search</button>
-            <div id="search-results"></div>
+    <div class="search-area">
+        <div class="search-box">
+            <input type="text" id="si" class="s-input" placeholder="Search Movie name...">
+            <button class="s-btn">GO</button>
         </div>
+        <div id="search-results"></div>
     </div>
 
-    <div class="tagline-strip">
-        hfcmovies • Honest Movie Reviews & Ratings
-    </div>
+    <div class="ad-slot">ADVERTISEMENT HERE</div>
 
     <main class="container">
         {{ content }}
     </main>
 
     <footer>
+        <div class="ad-slot">ADVERTISEMENT HERE</div>
         <div class="f-links">
-            <a href="/privacy-policy/">Privacy</a>
-            <a href="/dmca/">DMCA</a>
-            <a href="/contact/">Contact</a>
+            <a href="/dmca/">DMCA</a> • <a href="/privacy/">Privacy</a> • <a href="/contact/">Contact</a>
         </div>
-        <br>
-        &copy; 2026 hfcmovies.
+        <p style="margin-top: 10px;">&copy; 2026 hfcmovies.fun</p>
     </footer>
 
     <script>
-        const input = document.getElementById('searchInput');
-        const box = document.getElementById('search-results');
-        let movies = [];
+        const i = document.getElementById('si');
+        const r = document.getElementById('search-results');
+        let d = [];
+        
+        // Fetch Search Data safely
+        fetch('{{ site.baseurl }}/search.json')
+            .then(res => res.json())
+            .then(data => d = data)
+            .catch(err => console.log('Search Error:', err));
 
-        fetch('{{ site.baseurl }}/search.json').then(r => r.json()).then(d => movies = d);
-
-        input.addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            box.innerHTML = '';
-            if(val.length > 1) {
-                const found = movies.filter(m => m.title.toLowerCase().includes(val));
-                if(found.length) {
-                    box.style.display = 'block';
-                    found.slice(0, 5).forEach(m => {
-                        box.innerHTML += `<a href="${m.url}" class="res-item">
-                            <img src="${m.image}" class="res-img">
-                            <div><div style="font-size:14px; font-weight:600; color:#333">${m.title}</div></div>
-                        </a>`;
+        i.addEventListener('input', (e) => {
+            const v = e.target.value.toLowerCase();
+            r.innerHTML = '';
+            if(v.length > 1 && d.length > 0) {
+                const f = d.filter(m => m.title.toLowerCase().includes(v));
+                if(f.length) {
+                    r.style.display = 'block';
+                    f.slice(0, 8).forEach(m => {
+                        r.innerHTML += `<a href="${m.url}" class="s-item">${m.title}</a>`;
                     });
-                } else box.style.display = 'none';
-            } else box.style.display = 'none';
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!input.contains(e.target) && !box.contains(e.target)) box.style.display = 'none';
+                } else r.style.display = 'none';
+            } else r.style.display = 'none';
         });
     </script>
 </body>
