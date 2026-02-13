@@ -1,124 +1,36 @@
 ---
 layout: default
+title: Home
 ---
 
-<img src="{{ page.image }}" class="post-hero" alt="{{ page.title }}">
+<h4 style="margin-bottom: 15px; color: #334155; font-weight: 800;">🔥 LATEST UPDATES</h4>
 
-<table class="info-table">
-    <tr><td>Name</td><td>{{ page.title }}</td></tr>
-    <tr><td>Cast</td><td>{{ page.cast_names }}</td></tr>
-    <tr><td>IMDb</td><td>⭐ {{ page.imdb_rating }}/10</td></tr>
-    <tr><td>Quality</td><td>{{ page.quality }}</td></tr>
-</table>
-
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">🤖 AI Storyline</h3>
-<div style="background:white; padding:15px; border-radius:8px; border:1px solid #e2e8f0; font-size:15px; color:#475569; margin-bottom:20px;">
-    {{ content }}
-</div>
-
-<div class="related-box">
-    <div class="related-title">Maybe You Like</div>
-    {% assign related = site.posts | sample: 1 %}
-    {% for post in related %}
-    <a href="{{ post.url }}" style="font-weight:700; color:var(--primary);">➤ {{ post.title }}</a>
-    {% endfor %}
-</div>
-
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">👥 Cast & Crew</h3>
-<div class="cast-grid">
-    {% for actor in page.cast_details %}
-    <div class="cast-card">
-        <div class="cast-name">{{ actor.name }}</div>
-        <span class="cast-role">as {{ actor.role }}</span>
-    </div>
-    {% endfor %}
-</div>
-
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">📰 Trending News</h3>
-{% for news in page.news_links %}
-<div class="news-box">
-    <span class="news-source">{{ news.source }}</span>
-    <p style="font-size:13px; margin-bottom:5px;">{{ news.summary }}</p>
-    <a href="{{ news.url }}" target="_blank" class="news-link">Read Full Story &raquo;</a>
-</div>
-{% endfor %}
-
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px; margin-top:30px;">💬 Top Comments</h3>
-{% for comm in page.top_comments %}
-<div class="comment-box">
-    <div class="user-avatar">{{ comm.user | slice: 0 }}</div>
-    <div class="comm-body">
-        <div class="comm-head">
-            <span class="comm-user">{{ comm.user }}</span>
-            <span class="comm-platform"><i class="fab fa-{{ comm.platform }}"></i> {{ comm.platform }}</span>
+{% for post in paginator.posts %}
+<a href="{{ site.baseurl }}{{ post.url }}" class="movie-list-card">
+    <img src="{{ post.image }}" class="list-img" alt="{{ post.title }}" loading="lazy">
+    <div class="list-info">
+        <h3>{{ post.title }}</h3>
+        <div class="list-meta">
+            <span class="pill pill-qual">{{ post.quality }}</span>
+            <span class="pill pill-year">{{ post.year }}</span>
         </div>
-        <p class="comm-text">{{ comm.text }}</p>
     </div>
-</div>
+</a>
 {% endfor %}
 
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px; margin-top:30px;">📺 Where to Watch</h3>
-<div class="watch-grid">
-    <div class="watch-btn">Netflix</div>
-    <div class="watch-btn">Amazon Prime</div>
-    <div class="watch-btn">Hotstar</div>
+<h4 style="margin: 30px 0 15px; color: #334155; font-weight: 800;">📁 BROWSE CATEGORIES</h4>
+<div class="cat-scroll">
+    {% for category in site.categories %}
+    <a href="{{ site.baseurl }}/category/{{ category | first | slugify }}/" class="cat-tag">
+        <i class="fas fa-folder"></i> {{ category | first | capitalize }}
+    </a>
+    {% endfor %}
 </div>
 
-<div class="dl-wrapper">
-    <div class="dl-note">
-        ⚠️ DO NOT turn on/off Flight Mode. Link is bound to your IP: <span id="user-ip">Checking...</span>
-    </div>
-    
-    <button id="apiButton" class="api-btn" onclick="startProcess()">Get Link</button>
-    <p id="statusText" style="margin-top:10px; font-size:13px; color:#64748b; display:none;">Initializing Secure API...</p>
+{% if paginator.total_pages > 1 %}
+<div style="text-align: center; margin-top: 30px;">
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" class="btn-back" style="background:var(--primary);">Next Page &raquo;</a>
+    {% endif %}
 </div>
-
-<div class="dmca-box">
-    We do not host any files. This is just information available on the internet. 
-    <br><a href="/contact/" class="dmca-link">Contact for Removal</a>
-</div>
-
-<a href="{{ site.baseurl }}/" class="btn-back">← Go Back Home</a>
-
-<script>
-    // Fake IP for coolness
-    document.getElementById('user-ip').innerText = Math.floor(Math.random() * 255) + "." + Math.floor(Math.random() * 255) + ".11.45";
-
-    function startProcess() {
-        const btn = document.getElementById('apiButton');
-        const txt = document.getElementById('statusText');
-        
-        btn.disabled = true;
-        txt.style.display = 'block';
-        txt.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Connecting to WebSheru API...';
-        
-        // 5 Seconds Wait
-        let timeLeft = 5;
-        const timer = setInterval(() => {
-            btn.innerHTML = `Please Wait ${timeLeft}s`;
-            timeLeft--;
-            
-            if (timeLeft < 0) {
-                clearInterval(timer);
-                apiCallSuccess();
-            }
-        }, 1000);
-    }
-
-    function apiCallSuccess() {
-        const btn = document.getElementById('apiButton');
-        const txt = document.getElementById('statusText');
-        
-        txt.innerHTML = '<span style="color:green">✔ API Connection Successful!</span>';
-        btn.innerHTML = '<i class="fas fa-download"></i> DOWNLOAD NOW';
-        btn.style.background = '#22c55e'; // Green
-        btn.disabled = false;
-        
-        // Change onclick to Search Logic
-        btn.onclick = function() {
-            // Google Search Logic
-            const query = "site:websheru.online {{ page.title }} download";
-            window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
-        };
-    }
-</script>
+{% endif %}
