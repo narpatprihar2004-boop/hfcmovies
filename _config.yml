@@ -1,7 +1,15 @@
 title: hfcmovies
-description: Honest Movie Reviews
-theme: minima
+description: Premium Movie Reviews & Downloads
 url: "https://narpatprihar2004-boop.github.io"
-baseurl: "/hfcmovies"   # <-- YAHAN GOR KAREIN (Slash ke sath repo ka naam)
+baseurl: "/hfcmovies"
+theme: minima
 permalink: /:title/
 markdown: kramdown
+
+# 10,000 Posts Handling
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+
+paginate: 12  # Ek page par sirf 12 movies dikhengi, baki Next page par
+paginate_path: "/page:num/"
