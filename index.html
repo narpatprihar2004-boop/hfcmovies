@@ -3,20 +3,34 @@ layout: default
 title: Home
 ---
 
-<div class="section-title">Latest Reviews</div>
+<h2 style="margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px; color: white;">Latest Movies</h2>
 
-{% for post in site.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="card">
-    <div class="card-img-wrap">
-        <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}">
-    </div>
-    <div class="card-content">
-        <h3 class="card-title">{{ post.title }}</h3>
-        <div class="meta">
-            <span class="tag hd">{{ post.quality }}</span>
-            <span class="tag">{{ post.year }}</span>
+<div class="grid">
+    {% for post in paginator.posts %}
+    <a href="{{ site.baseurl }}{{ post.url }}" class="card">
+        <div class="card-img-container">
+            <span class="quality-badge">{{ post.quality }}</span>
+            <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}" loading="lazy">
         </div>
-        <p class="excerpt">{{ post.excerpt | strip_html | truncate: 90 }}</p>
-    </div>
-</a>
-{% endfor %}
+        <div class="card-body">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <div class="card-meta">
+                <span><i class="fas fa-calendar"></i> {{ post.year }}</span>
+                <span>Review <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="page-btn">← Previous</a>
+    {% endif %}
+    
+    <span style="padding: 10px; color: #8b949e;">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="page-btn">Next →</a>
+    {% endif %}
+</div>
