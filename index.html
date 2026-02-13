@@ -3,34 +3,31 @@ layout: default
 title: Home
 ---
 
-<h2 style="margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px; color: white;">Latest Movies</h2>
+<div class="section-head">Latest Reviews</div>
 
-<div class="grid">
-    {% for post in paginator.posts %}
-    <a href="{{ site.baseurl }}{{ post.url }}" class="card">
-        <div class="card-img-container">
-            <span class="quality-badge">{{ post.quality }}</span>
-            <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}" loading="lazy">
+{% for post in paginator.posts %}
+<a href="{{ site.baseurl }}{{ post.url }}" class="blog-card">
+    <div class="card-img-wrap">
+        <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}" loading="lazy">
+    </div>
+    <div class="card-content">
+        <h3 class="card-title">{{ post.title }}</h3>
+        <div class="card-meta">
+            <span class="badge">{{ post.year }}</span>
+            <span class="badge" style="color: #D32F2F;">{{ post.quality }}</span>
         </div>
-        <div class="card-body">
-            <h3 class="card-title">{{ post.title }}</h3>
-            <div class="card-meta">
-                <span><i class="fas fa-calendar"></i> {{ post.year }}</span>
-                <span>Review <i class="fas fa-arrow-right"></i></span>
-            </div>
-        </div>
-    </a>
-    {% endfor %}
-</div>
+        <p class="card-excerpt">{{ post.excerpt | strip_html }}</p>
+    </div>
+</a>
+{% endfor %}
 
-<div class="pagination">
+{% if paginator.total_pages > 1 %}
+<div style="text-align: center; margin-top: 30px;">
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | relative_url }}" class="page-btn">← Previous</a>
+    <a href="{{ paginator.previous_page_path }}" class="btn" style="background: #555;">&laquo; Prev</a>
     {% endif %}
-    
-    <span style="padding: 10px; color: #8b949e;">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
-
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | relative_url }}" class="page-btn">Next →</a>
+    <a href="{{ paginator.next_page_path }}" class="btn">Next &raquo;</a>
     {% endif %}
 </div>
+{% endif %}
