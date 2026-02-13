@@ -1,84 +1,70 @@
-/* --- 1. Basic Reset & Speed --- */
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
 :root {
-    --primary: #e50914; /* Netflix Red */
-    --bg: #121212;
-    --card: #1e1e1e;
-    --text: #ffffff;
-    --text-gray: #b3b3b3;
+    --primary: #d32f2f; /* Professional Red */
+    --dark: #222;
+    --light-bg: #f8f9fa; /* Very Light Grey */
+    --white: #ffffff;
+    --border: #e0e0e0;
+    --text: #444;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-body { background-color: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; padding-bottom: 50px; }
-a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-/* --- 2. Loading Screen --- */
-#loader {
-    position: fixed; inset: 0; background: var(--bg); z-index: 9999;
-    display: flex; justify-content: center; align-items: center; transition: opacity 0.5s;
-}
-.spinner {
-    width: 40px; height: 40px; border: 4px solid #333;
-    border-top: 4px solid var(--primary); border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-@keyframes spin { 100% { transform: rotate(360deg); } }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-/* --- 3. Header (Glass Effect) --- */
+body { background-color: var(--light-bg); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; transition: 0.2s; }
+a:hover { color: var(--primary); }
+
+/* --- Professional Navbar --- */
 header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(18, 18, 18, 0.9); backdrop-filter: blur(10px);
-    border-bottom: 1px solid #333; padding: 15px 20px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.nav-content { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-.logo { font-size: 24px; font-weight: 900; letter-spacing: -1px; }
+.nav-container {
+    max-width: 1000px; margin: 0 auto; padding: 0 20px;
+    height: 70px; display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-size: 24px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
 .logo span { color: var(--primary); }
 
-/* --- 4. Search Bar --- */
-.search-box { position: relative; width: 100%; max-width: 300px; }
-.search-input {
-    width: 100%; background: #333; border: none; padding: 10px 15px;
-    border-radius: 20px; color: white; font-size: 14px; outline: none;
-}
-.search-input:focus { background: #444; box-shadow: 0 0 0 2px var(--primary); }
-#search-results {
-    position: absolute; top: 45px; left: 0; right: 0;
-    background: var(--card); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    display: none; max-height: 300px; overflow-y: auto; border: 1px solid #333;
-}
-.result-item { display: flex; padding: 10px; border-bottom: 1px solid #333; align-items: center; gap: 10px; }
-.result-item:hover { background: #2a2a2a; }
-.result-img { width: 40px; height: 50px; object-fit: cover; border-radius: 4px; }
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { font-size: 14px; font-weight: 600; color: #555; text-transform: uppercase; }
+.nav-links a:hover { color: var(--primary); }
 
-/* --- 5. Main Layout --- */
-.container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-.section-title { font-size: 18px; margin-bottom: 15px; border-left: 4px solid var(--primary); padding-left: 10px; font-weight: 700; }
+/* --- Main Layout --- */
+.container { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 60vh; }
+.page-heading { font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); display: inline-block; }
 
-/* --- 6. Cool List Card --- */
+/* --- Review List Card (Blog Style) --- */
 .card {
-    display: flex; background: var(--card); border-radius: 12px;
-    overflow: hidden; margin-bottom: 15px; border: 1px solid #2a2a2a;
-    transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
+    display: flex; background: var(--white); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden; margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
-.card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(229, 9, 20, 0.15); border-color: #444; }
-.card-img-wrap { width: 110px; flex-shrink: 0; position: relative; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); border-color: #ccc; }
+
+.card-img-wrap { width: 140px; flex-shrink: 0; background: #eee; }
 .card-img { width: 100%; height: 100%; object-fit: cover; }
-.card-content { padding: 15px; display: flex; flex-direction: column; justify-content: center; width: 100%; }
-.card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; color: #fff; }
-.meta { display: flex; gap: 8px; font-size: 11px; margin-bottom: 5px; }
-.tag { padding: 3px 8px; border-radius: 4px; background: #333; color: #ccc; }
-.tag.hd { background: rgba(229, 9, 20, 0.2); color: #ff4d58; }
-.excerpt { font-size: 13px; color: var(--text-gray); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* --- 7. Post Page --- */
-.post-hero { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
-.post-h1 { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
-.download-area { background: var(--card); padding: 20px; border-radius: 12px; margin-top: 30px; text-align: center; border: 1px solid #333; }
-.btn { display: inline-block; background: var(--primary); color: white; padding: 12px 30px; border-radius: 30px; font-weight: bold; margin-top: 10px; }
-.btn:hover { background: #f40612; }
+.card-content { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.card-title { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 8px; line-height: 1.3; }
+.meta { font-size: 12px; color: #777; margin-bottom: 10px; font-weight: 600; }
+.meta span { background: #eee; padding: 2px 8px; border-radius: 4px; margin-right: 5px; }
+.excerpt { font-size: 14px; color: #666; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* Mobile Tweaks */
+/* --- Footer (Adsense Requirement) --- */
+footer { background: var(--white); border-top: 1px solid var(--border); padding: 40px 0; margin-top: 50px; text-align: center; }
+.footer-links { margin-bottom: 15px; }
+.footer-links a { margin: 0 10px; font-size: 13px; color: #666; font-weight: 600; }
+.copyright { font-size: 12px; color: #999; }
+
+/* Mobile */
 @media (max-width: 600px) {
-    .card-img-wrap { width: 90px; }
-    .card-title { font-size: 15px; }
-    .nav-content { flex-direction: column; gap: 10px; }
-    .search-box { width: 100%; max-width: 100%; }
+    .nav-links { display: none; } /* Mobile Menu hidden for simplicity */
+    .card-img-wrap { width: 100px; }
+    .card-title { font-size: 16px; }
+    .card-content { padding: 15px; }
 }
