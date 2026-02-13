@@ -3,34 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% seo %}
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#E50914', dark: '#141414', card: '#1f1f1f' }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Custom Loader */
+        #loader { position: fixed; inset: 0; background: #141414; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #E50914; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .fade-content { animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
-<body>
+<body class="bg-dark text-gray-200 font-sans antialiased">
 
-    <header>
-        <a href="{{ site.baseurl }}/" class="logo">hfc<span>movies</span></a>
-        <div class="search-container">
-            <input type="text" placeholder="Search movies...">
-            <button><i class="fas fa-search"></i></button>
+    <div id="loader"><div class="spinner"></div></div>
+
+    <nav class="sticky top-0 z-50 bg-dark/90 backdrop-blur-md border-b border-gray-800 shadow-lg">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <a href="{{ site.baseurl }}/" class="text-3xl font-extrabold tracking-tighter text-white hover:scale-105 transition">
+                hfc<span class="text-primary">movies</span>
+            </a>
+
+            <div class="relative w-full md:w-80">
+                <input type="text" id="search-input" placeholder="Search movies..." 
+                    class="w-full bg-card border border-gray-700 text-white rounded-full py-2 px-5 pl-10 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition shadow-inner">
+                <i class="fas fa-search absolute left-4 top-3 text-gray-500"></i>
+                <div id="results-container" class="absolute top-12 left-0 w-full bg-card border border-gray-700 rounded-xl shadow-2xl hidden z-50 max-h-80 overflow-y-auto"></div>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <div class="tagline-bar">
-        hfcmovies • Honest Movie Reviews & Ratings
-    </div>
-
-    <div class="container">
+    <main class="max-w-4xl mx-auto px-4 py-8 min-h-screen fade-content">
         {{ content }}
-    </div>
+    </main>
 
-    <footer>
-        <p>&copy; 2026 hfcmovies. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a> | <a href="#">DMCA</a>
-        </div>
+    <footer class="bg-card border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2026 hfcmovies. Designed for Movie Lovers.</p>
     </footer>
 
+    <script>
+        // 1. Remove Loader when page loads
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 500);
+        });
+
+        // 2. Search Logic (Simple & Fast)
+        const searchInput = document.getElementById('search-input');
+        const resultsContainer = document.getElementById('results-container');
+        let movies = [];
+
+        // Fetch Search Data
+        fetch('{{ site.baseurl }}/search.json')
+            .then(response => response.json())
+            .then(data => movies = data);
+
+        searchInput.addEventListener('keyup', (e) => {
+            const query = e.target.value.toLowerCase();
+            resultsContainer.innerHTML = '';
+            
+            if (query.length > 1) {
+                const filtered = movies.filter(movie => movie.title.toLowerCase().includes(query));
+                if (filtered.length > 0) {
+                    resultsContainer.classList.remove('hidden');
+                    filtered.forEach(movie => {
+                        resultsContainer.innerHTML += `
+                            <a href="${movie.url}" class="flex items-center gap-3 p-3 hover:bg-gray-700 transition border-b border-gray-700 last:border-0">
+                                <img src="${movie.image}" class="w-10 h-14 object-cover rounded">
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">${movie.title}</h4>
+                                    <span class="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded">${movie.quality || 'HD'}</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+                } else {
+                    resultsContainer.innerHTML = '<div class="p-3 text-center text-gray-400">No movies found</div>';
+                    resultsContainer.classList.remove('hidden');
+                }
+            } else {
+                resultsContainer.classList.add('hidden');
+            }
+        });
+
+        // Close search when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+                resultsContainer.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
