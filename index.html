@@ -3,8 +3,6 @@ layout: default
 title: Home
 ---
 
-<h2 class="page-title">Latest Reviews</h2>
-
 {% for post in site.posts %}
 <a href="{{ post.url }}" class="movie-card">
     <div class="poster-wrapper">
@@ -13,10 +11,8 @@ title: Home
     <div class="content">
         <h3 class="title">{{ post.title }}</h3>
         <div class="meta-tags">
-            <span class="tag quality">{{ post.quality }}</span>
-            <span class="tag">{{ post.year }}</span>
+            <span class="year-tag">{{ post.year }} MOVIES</span>
         </div>
-        <p class="desc">{{ post.excerpt | strip_html | truncate: 120 }}</p>
     </div>
 </a>
 {% endfor %}
