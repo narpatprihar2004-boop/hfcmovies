@@ -4,18 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. PROFESSIONAL VARIABLES --- */
+        :root {
+            --primary: #D32F2F; /* Professional Red */
+            --bg: #F8F9FA;      /* Light Grey Background */
+            --card: #FFFFFF;    /* White Card */
+            --text: #222222;    /* Dark Black Text */
+            --text-light: #666666;
+            --border: #E0E0E0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-top: 70px; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+
+        /* --- 2. HEADER (CLEAN WHITE) --- */
+        header {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 1000;
+            background: white; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .nav-inner { width: 95%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 22px; font-weight: 800; color: #333; letter-spacing: -0.5px; }
+        .logo span { color: var(--primary); }
+
+        /* Search Bar */
+        .search-wrap { position: relative; }
+        .search-inp {
+            padding: 8px 15px; border: 1px solid #ddd; border-radius: 20px;
+            font-size: 14px; width: 200px; background: #f5f5f5; outline: none;
+        }
+        .search-inp:focus { border-color: var(--primary); background: white; }
+
+        /* --- 3. MAIN CONTAINER --- */
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+        .section-head { font-size: 20px; font-weight: 700; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 10px; color: #333; }
+
+        /* --- 4. LIST STYLE CARD (Cool & Readable) --- */
+        .blog-card {
+            display: flex; background: var(--card); border: 1px solid var(--border);
+            border-radius: 8px; overflow: hidden; margin-bottom: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .blog-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #ccc;
+        }
+
+        /* Left Image */
+        .card-img-wrap { width: 140px; min-width: 140px; height: auto; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Right Content */
+        .card-content { padding: 15px; display: flex; flex-direction: column; justify-content: center; width: 100%; }
+        .card-title { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 8px; line-height: 1.3; }
+        .card-title:hover { color: var(--primary); }
+        
+        .card-meta { font-size: 12px; color: #888; margin-bottom: 5px; display: flex; gap: 10px; }
+        .badge { background: #eee; padding: 2px 6px; border-radius: 4px; font-weight: 500; color: #555; }
+        
+        .card-excerpt { font-size: 14px; color: #666; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* --- 5. POST PAGE (READING MODE) --- */
+        .post-box { background: white; padding: 30px; border-radius: 8px; border: 1px solid var(--border); }
+        .post-h1 { font-size: 28px; font-weight: 800; color: #222; margin-bottom: 10px; }
+        .hero-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 6px; margin-bottom: 20px; }
+        .btn {
+            display: inline-block; background: var(--primary); color: white; padding: 10px 25px;
+            border-radius: 4px; font-weight: bold; margin-top: 15px; text-align: center;
+        }
+
+        /* --- 6. FOOTER --- */
+        footer { text-align: center; padding: 30px; border-top: 1px solid #ddd; margin-top: 40px; background: white; font-size: 13px; color: #777; }
+
+        /* MOBILE FIXES */
+        @media (max-width: 600px) {
+            .blog-card { height: auto; }
+            .card-img-wrap { width: 100px; min-width: 100px; } /* Mobile me choti image */
+            .card-title { font-size: 16px; }
+            .search-wrap { display: none; } /* Mobile se search hataya clean look ke liye */
+            .post-box { padding: 15px; }
+            .post-h1 { font-size: 22px; }
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="nav-width">
+        <div class="nav-inner">
             <a href="{{ site.baseurl }}/" class="logo">HFC<span>MOVIES</span></a>
-            
-            <div class="search-wrapper">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search 10k+ movies...">
-                <div id="search-results"></div>
+            <div class="search-wrap">
+                <input type="text" class="search-inp" placeholder="Search reviews...">
             </div>
         </div>
     </header>
@@ -24,52 +109,9 @@
         {{ content }}
     </main>
 
-    <footer style="text-align: center; padding: 40px; border-top: 1px solid var(--border); margin-top: 50px; color: #8b949e;">
-        <p>&copy; 2026 hfcmovies. Optimized for Performance.</p>
+    <footer>
+        &copy; 2026 hfcmovies. Designed for Readers.
     </footer>
 
-    <script>
-        const searchInput = document.getElementById('searchInput');
-        const resultsBox = document.getElementById('search-results');
-        let movies = [];
-
-        // Fetch data once
-        fetch('{{ site.baseurl }}/search.json')
-            .then(res => res.json())
-            .then(data => movies = data);
-
-        searchInput.addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            resultsBox.innerHTML = '';
-            
-            if(val.length > 1){
-                const found = movies.filter(m => m.title.toLowerCase().includes(val));
-                if(found.length > 0){
-                    resultsBox.style.display = 'block';
-                    found.slice(0, 10).forEach(m => { // Show max 10 results
-                        resultsBox.innerHTML += `
-                            <a href="${m.url}" class="result-item">
-                                <img src="${m.image}" class="result-img">
-                                <div>
-                                    <div style="font-weight:bold; font-size:14px; color:white;">${m.title}</div>
-                                    <div style="font-size:12px; color:#888;">${m.year}</div>
-                                </div>
-                            </a>`;
-                    });
-                } else {
-                    resultsBox.style.display = 'none';
-                }
-            } else {
-                resultsBox.style.display = 'none';
-            }
-        });
-
-        // Hide search on outside click
-        document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
-                resultsBox.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
