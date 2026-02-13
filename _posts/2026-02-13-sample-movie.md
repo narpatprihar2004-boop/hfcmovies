@@ -1,17 +1,39 @@
 ---
 layout: post
-title: "Pushpa 2: The Rule Full Movie Review & Download"
-date: 2026-02-13
-image: "https://upload.wikimedia.org/wikipedia/en/1/11/Pushpa_The_Rule.jpg"
+title: "Pushpa 2: The Rule (2024)"
+date: 2026-02-14
+image: "https://link-to-image.jpg"
+categories: [South Indian, Action, Pan India]
+imdb_rating: 8.5
 quality: "1080p HQ"
-year: "2024"
+cast_names: "Allu Arjun, Rashmika, Fahadh"
+
+# CAST DETAILS (Box ban jayega)
+cast_details:
+  - name: Allu Arjun
+    role: Pushpa Raj
+  - name: Rashmika
+    role: Srivalli
+
+# NEWS (Links + Summary)
+news_links:
+  - source: Amar Ujala
+    summary: "Pushpa 2 ne tode saare record, pehle din kamaye 100 crore."
+    url: "https://amarujala.com/..."
+  - source: Navbharat Times
+    summary: "Allu Arjun ka naya look hua viral."
+    url: "https://navbharat.com/..."
+
+# COMMENTS
+top_comments:
+  - user: Rohit Sharma
+    platform: facebook
+    text: "Bhai kya movie hai! Maza aa gaya."
+  - user: Angel Priya
+    platform: instagram
+    text: "Allu Arjun is fire 🔥"
 ---
 
-## Movie Story
-Pushpa Raj is back! The rule begins where the first part ended. Allu Arjun ne is movie me tabahi macha di hai.
+Yahan par likho movie ki **AI Storyline**. 
 
-### Review
-Is movie ka action aur dialogue delivery next level hai. VFX thoda aur better ho sakta tha, lekin mass entertainment ke liye ye perfect hai.
-
-### Disclaimer
-We do not promote piracy. This is just a review.
+Pushpa Raj wapas aa gaya hai aur is baar wo pehle se zyada khatarnak hai. Police aur Pushpa ki jung ab naye level par hai...
