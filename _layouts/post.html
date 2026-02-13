@@ -1,24 +1,18 @@
 ---
 layout: default
 ---
-<article>
-    <img src="{{ page.image }}" alt="{{ page.title }}" class="post-hero">
+<article class="post-box">
+    <h1 style="font-size: 24px; font-weight: 700; color: #222; margin-bottom: 20px;">{{ page.title }}</h1>
     
-    <h1 class="post-h1">{{ page.title }}</h1>
-    
-    <div class="meta" style="margin-bottom: 20px;">
-        <span class="tag hd">{{ page.quality }}</span>
-        <span class="tag">{{ page.year }}</span>
-        <span class="tag" style="background:none; color:#888">{{ page.date | date: "%B %d, %Y" }}</span>
-    </div>
+    <img src="{{ page.image }}" class="hero-img">
 
-    <div style="line-height: 1.8; color: #ccc;">
+    <div style="font-size: 16px; line-height: 1.8; color: #444;">
         {{ content }}
     </div>
 
-    <div class="download-area">
-        <h3 style="margin-bottom: 10px;">Download Links</h3>
-        <p style="font-size: 13px; color: #888; margin-bottom: 15px;">Click below to get the file instantly.</p>
-        <a href="#" class="btn">Download 720p (High Speed)</a>
+    <div style="margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 12px; text-align: center; border: 1px dashed #ddd;">
+        <h3 style="color: #333; margin-bottom: 10px;">Download Options</h3>
+        <p style="color: #666; font-size: 13px;">Select your preferred quality below</p>
+        <a href="#" class="download-btn">Download 1080p HQ</a>
     </div>
 </article>
