@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | {{ site.title }}</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
 </head>
 <body>
 
     <header>
-        <a href="/" class="brand">hfc<span>movies</span></a>
-        <div style="font-size: 20px;">🔍</div>
+        <div class="logo">hfc<span>movies</span></div>
+        <div class="search-container">
+            <input type="text" placeholder="Search reviews, movies...">
+            <button>Search</button>
+        </div>
     </header>
+
+    <div class="tagline-bar">
+        hfcmovies • Honest Movie Reviews & Ratings
+    </div>
 
     <div class="container">
         {{ content }}
     </div>
-
-    <footer>
-        &copy; 2026 hfcmovies. Designed for Movie Lovers.
-    </footer>
 
 </body>
 </html>
