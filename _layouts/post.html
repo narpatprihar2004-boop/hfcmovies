@@ -1,124 +1,103 @@
 ---
 layout: default
 ---
+<div class="post-wrap">
 
-<img src="{{ page.image }}" class="post-hero" alt="{{ page.title }}">
+    <img src="{{ page.image }}" class="post-hero">
 
-<table class="info-table">
-    <tr><td>Name</td><td>{{ page.title }}</td></tr>
-    <tr><td>Cast</td><td>{{ page.cast_names }}</td></tr>
-    <tr><td>IMDb</td><td>⭐ {{ page.imdb_rating }}/10</td></tr>
-    <tr><td>Quality</td><td>{{ page.quality }}</td></tr>
-</table>
+    <div class="sec-title">Movie Info</div>
+    <table class="info-tbl">
+        <tr><td>Name</td><td>{{ page.title }}</td></tr>
+        <tr><td>Cast</td><td>{{ page.cast_names }}</td></tr>
+        <tr><td>Rating</td><td>⭐ {{ page.imdb }}/10</td></tr>
+        <tr><td>Quality</td><td>{{ page.quality }}</td></tr>
+    </table>
 
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">🤖 AI Storyline</h3>
-<div style="background:white; padding:15px; border-radius:8px; border:1px solid #e2e8f0; font-size:15px; color:#475569; margin-bottom:20px;">
-    {{ content }}
-</div>
-
-<div class="related-box">
-    <div class="related-title">Maybe You Like</div>
-    {% assign related = site.posts | sample: 1 %}
-    {% for post in related %}
-    <a href="{{ post.url }}" style="font-weight:700; color:var(--primary);">➤ {{ post.title }}</a>
-    {% endfor %}
-</div>
-
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">👥 Cast & Crew</h3>
-<div class="cast-grid">
-    {% for actor in page.cast_details %}
-    <div class="cast-card">
-        <div class="cast-name">{{ actor.name }}</div>
-        <span class="cast-role">as {{ actor.role }}</span>
+    <div class="sec-title">🤖 AI Storyline</div>
+    <div style="font-size:13px; color:#444; margin-bottom:20px; line-height:1.5;">
+        {{ content }}
     </div>
-    {% endfor %}
-</div>
 
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">📰 Trending News</h3>
-{% for news in page.news_links %}
-<div class="news-box">
-    <span class="news-source">{{ news.source }}</span>
-    <p style="font-size:13px; margin-bottom:5px;">{{ news.summary }}</p>
-    <a href="{{ news.url }}" target="_blank" class="news-link">Read Full Story &raquo;</a>
-</div>
-{% endfor %}
+    <div style="background:#f0f8ff; padding:10px; border:1px solid #d1e7dd; margin-bottom:20px; font-size:13px;">
+        <strong>Maybe You Like:</strong> <a href="/" style="color:#0056b3; font-weight:bold;">Pushpa 2 Hindi Dubbed (Click Here)</a>
+    </div>
 
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px; margin-top:30px;">💬 Top Comments</h3>
-{% for comm in page.top_comments %}
-<div class="comment-box">
-    <div class="user-avatar">{{ comm.user | slice: 0 }}</div>
-    <div class="comm-body">
-        <div class="comm-head">
-            <span class="comm-user">{{ comm.user }}</span>
-            <span class="comm-platform"><i class="fab fa-{{ comm.platform }}"></i> {{ comm.platform }}</span>
+    <div class="sec-title">👥 Cast & Crew</div>
+    <div class="cast-row">
+        {% for c in page.cast_list %}
+        <div class="cast-card">
+            <span class="c-name">{{ c.name }}</span>
+            <span class="c-role">{{ c.role }}</span>
         </div>
-        <p class="comm-text">{{ comm.text }}</p>
+        {% endfor %}
     </div>
-</div>
-{% endfor %}
 
-<h3 style="font-size:18px; font-weight:700; margin-bottom:10px; margin-top:30px;">📺 Where to Watch</h3>
-<div class="watch-grid">
-    <div class="watch-btn">Netflix</div>
-    <div class="watch-btn">Amazon Prime</div>
-    <div class="watch-btn">Hotstar</div>
-</div>
-
-<div class="dl-wrapper">
-    <div class="dl-note">
-        ⚠️ DO NOT turn on/off Flight Mode. Link is bound to your IP: <span id="user-ip">Checking...</span>
+    <div class="sec-title" style="margin-top:20px;">📰 Trending News</div>
+    {% for n in page.news %}
+    <div class="news-item">
+        <div class="n-source">{{ n.source }}</div>
+        <p class="n-text">{{ n.summary }}</p>
+        <a href="{{ n.link }}" style="font-size:11px; color:blue; text-decoration:underline;">Read More</a>
     </div>
-    
-    <button id="apiButton" class="api-btn" onclick="startProcess()">Get Link</button>
-    <p id="statusText" style="margin-top:10px; font-size:13px; color:#64748b; display:none;">Initializing Secure API...</p>
-</div>
+    {% endfor %}
 
-<div class="dmca-box">
-    We do not host any files. This is just information available on the internet. 
-    <br><a href="/contact/" class="dmca-link">Contact for Removal</a>
-</div>
+    <div class="sec-title" style="margin-top:20px;">💬 Top Comments</div>
+    {% for comm in page.comments %}
+    <div class="comm-item">
+        <div class="u-pic">{{ comm.user | slice: 0 }}</div>
+        <div>
+            <div class="c-head">{{ comm.user }} <i class="fab fa-{{ comm.platform }}" style="color:#aaa"></i></div>
+            <div class="c-body">{{ comm.text }}</div>
+        </div>
+    </div>
+    {% endfor %}
 
-<a href="{{ site.baseurl }}/" class="btn-back">← Go Back Home</a>
+    <div class="sec-title" style="margin-top:20px;">📺 Where To Watch</div>
+    <div style="display:flex; gap:10px;">
+        <button style="flex:1; border:1px solid #ddd; background:white; padding:8px; font-weight:bold;">Netflix</button>
+        <button style="flex:1; border:1px solid #ddd; background:white; padding:8px; font-weight:bold;">Prime</button>
+        <button style="flex:1; border:1px solid #ddd; background:white; padding:8px; font-weight:bold;">JioC</button>
+    </div>
+
+    <div class="dl-area">
+        <div class="flight-warn">⚠️ Please DO NOT turn on/off Flight Mode. Link is bound to your IP.</div>
+        <button id="dlBtn" class="api-btn" onclick="startTimer()">Get Download Link</button>
+        <p id="status" style="font-size:12px; color:#555; margin-top:5px; display:none;">Checking Server...</p>
+    </div>
+
+    <div class="dmca-box">
+        We do not host any files. <a href="/contact/" style="color:blue;">Contact Us</a> for removal.
+    </div>
+    <a href="/" style="display:block; text-align:center; margin-top:15px; background:#333; color:white; padding:10px; border-radius:4px;">← Go Back</a>
+
+</div>
 
 <script>
-    // Fake IP for coolness
-    document.getElementById('user-ip').innerText = Math.floor(Math.random() * 255) + "." + Math.floor(Math.random() * 255) + ".11.45";
-
-    function startProcess() {
-        const btn = document.getElementById('apiButton');
-        const txt = document.getElementById('statusText');
+    function startTimer() {
+        var btn = document.getElementById("dlBtn");
+        var stat = document.getElementById("status");
+        var time = 5;
         
         btn.disabled = true;
-        txt.style.display = 'block';
-        txt.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Connecting to WebSheru API...';
+        btn.style.background = "#6c757d";
+        stat.style.display = "block";
         
-        // 5 Seconds Wait
-        let timeLeft = 5;
-        const timer = setInterval(() => {
-            btn.innerHTML = `Please Wait ${timeLeft}s`;
-            timeLeft--;
-            
-            if (timeLeft < 0) {
+        var timer = setInterval(function(){
+            btn.innerText = "Please Wait " + time + "s";
+            time--;
+            if(time < 0){
                 clearInterval(timer);
-                apiCallSuccess();
+                btn.innerText = "🔍 Search on Google";
+                btn.style.background = "#0056b3";
+                btn.disabled = false;
+                stat.innerHTML = "<b style='color:green'>Link Generated!</b>";
+                
+                btn.onclick = function(){
+                    // Google Search Redirect Logic
+                    var q = "site:websheru.online {{ page.title }}";
+                    window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(q);
+                }
             }
         }, 1000);
-    }
-
-    function apiCallSuccess() {
-        const btn = document.getElementById('apiButton');
-        const txt = document.getElementById('statusText');
-        
-        txt.innerHTML = '<span style="color:green">✔ API Connection Successful!</span>';
-        btn.innerHTML = '<i class="fas fa-download"></i> DOWNLOAD NOW';
-        btn.style.background = '#22c55e'; // Green
-        btn.disabled = false;
-        
-        // Change onclick to Search Logic
-        btn.onclick = function() {
-            // Google Search Logic
-            const query = "site:websheru.online {{ page.title }} download";
-            window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
-        };
     }
 </script>
