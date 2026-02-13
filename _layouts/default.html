@@ -3,86 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
-    <meta name="description" content="{{ page.excerpt | strip_html | truncate: 150 }}">
+    <title>{{ page.title }} - hfcmovies</title>
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
 </head>
 <body>
 
-    <div id="loader"><div class="spinner"></div></div>
-
     <header>
-        <div class="nav-content">
+        <div class="nav-container">
             <a href="{{ site.baseurl }}/" class="logo">hfc<span>movies</span></a>
-            
-            <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search movies...">
-                <div id="search-results"></div>
-            </div>
+            <nav class="nav-links">
+                <a href="{{ site.baseurl }}/">Home</a>
+                <a href="{{ site.baseurl }}/about/">About</a>
+                <a href="{{ site.baseurl }}/contact/">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
+    <main class="container">
         {{ content }}
-    </div>
+    </main>
 
-    <footer style="text-align: center; color: #666; font-size: 12px; margin-top: 40px;">
-        &copy; 2026 hfcmovies. Optimized for Speed.
+    <footer>
+        <div class="footer-links">
+            <a href="{{ site.baseurl }}/privacy-policy/">Privacy Policy</a>
+            <a href="{{ site.baseurl }}/dmca/">DMCA</a>
+            <a href="{{ site.baseurl }}/contact/">Contact Us</a>
+            <a href="{{ site.baseurl }}/about/">About Us</a>
+        </div>
+        <div class="copyright">
+            &copy; 2026 hfcmovies. All rights reserved.
+        </div>
     </footer>
 
-    <script>
-        // Loader Remove
-        window.addEventListener('load', function(){
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(function(){ document.getElementById('loader').style.display = 'none'; }, 500);
-        });
-
-        // Search Logic
-        const searchInput = document.getElementById('searchInput');
-        const resultsBox = document.getElementById('search-results');
-        let movies = [];
-
-        // Load data once
-        fetch('{{ site.baseurl }}/search.json')
-            .then(res => res.json())
-            .then(data => movies = data);
-
-        searchInput.addEventListener('keyup', function(e){
-            const val = e.target.value.toLowerCase();
-            resultsBox.innerHTML = '';
-            
-            if(val.length > 1){
-                const found = movies.filter(m => m.title.toLowerCase().includes(val));
-                if(found.length > 0){
-                    resultsBox.style.display = 'block';
-                    found.forEach(m => {
-                        resultsBox.innerHTML += `
-                            <a href="${m.url}" class="result-item">
-                                <img src="${m.image}" class="result-img">
-                                <div>
-                                    <div style="font-size:14px; font-weight:bold; color:#fff">${m.title}</div>
-                                    <div style="font-size:11px; color:#aaa">${m.year}</div>
-                                </div>
-                            </a>`;
-                    });
-                } else {
-                    resultsBox.style.display = 'none';
-                }
-            } else {
-                resultsBox.style.display = 'none';
-            }
-        });
-
-        // Close search on outside click
-        document.addEventListener('click', function(e){
-            if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
-                resultsBox.style.display = 'none';
-            }
-        });
-    </script>
-
-</body>
-</html>
-    </script>
 </body>
 </html>
