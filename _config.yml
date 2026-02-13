@@ -1,7 +1,7 @@
 title: hfcmovies
 description: Honest Movie Reviews
 theme: minima
-url: "https://narpatprihar2004-boop.github.io" 
-baseurl: "/hfcmovies"  # <-- Ye sabse IMPORTANT hai (Slash zaroori hai)
+url: "https://narpatprihar2004-boop.github.io"
+baseurl: "/hfcmovies"   # <-- YAHAN GOR KAREIN (Slash ke sath repo ka naam)
 permalink: /:title/
 markdown: kramdown
