@@ -4,15 +4,17 @@ title: Home
 ---
 
 {% for post in site.posts %}
-<a href="{{ post.url }}" class="movie-card">
+<a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
     <div class="poster-wrapper">
         <img src="{{ post.image }}" class="poster-img" alt="{{ post.title }}">
     </div>
     <div class="content">
         <h3 class="title">{{ post.title }}</h3>
         <div class="meta-tags">
-            <span class="year-tag">{{ post.year }} MOVIES</span>
+            <span class="year-tag">{{ post.year }}</span>
+            <span class="quality-tag">{{ post.quality }}</span>
         </div>
+        <p class="excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>
     </div>
 </a>
 {% endfor %}
