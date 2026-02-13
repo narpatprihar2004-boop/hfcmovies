@@ -3,20 +3,14 @@ layout: default
 title: Home
 ---
 
-<div class="section-title">Latest Reviews</div>
-
 {% for post in paginator.posts %}
 <a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
-    <div class="poster-wrapper">
-        <img src="{{ post.image }}" class="poster-img" alt="{{ post.title }}" loading="lazy">
+    <div class="card-img-wrap">
+        <img src="{{ post.image }}" class="card-img" alt="{{ post.title }}">
     </div>
-    <div class="content">
-        <h3 class="title">{{ post.title }}</h3>
-        <div class="meta-tags">
-            <span class="tag quality">{{ post.quality }}</span>
-            <span class="tag">{{ post.year }}</span>
-        </div>
-        <p class="desc-preview">{{ post.excerpt | strip_html }}</p>
+    <div class="card-content">
+        <h3 class="card-title">{{ post.title }}</h3>
+        <span class="pill-tag">{{ post.year }} MOVIES</span>
     </div>
 </a>
 {% endfor %}
@@ -24,7 +18,7 @@ title: Home
 {% if paginator.total_pages > 1 %}
 <div style="text-align: center; margin-top: 30px;">
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="dl-btn" style="padding: 10px 25px; font-size: 13px;">Next Page →</a>
+    <a href="{{ paginator.next_page_path | relative_url }}" class="pill-tag" style="background:#333; color:white;">Next Page →</a>
     {% endif %}
 </div>
 {% endif %}
