@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<article class="review-post" itemscope itemtype="http://schema.org/Review">
+    
+    <h1 class="post-heading" itemprop="itemReviewed">{{ page.title }}</h1>
+    
+    <div class="post-meta">
+        <span class="year-tag">{{ page.year }}</span>
+        <span class="quality-tag">{{ page.quality }}</span>
+        <span class="date"><i class="far fa-calendar-alt"></i> {{ page.date | date: "%b %d, %Y" }}</span>
+    </div>
+
+    <img src="{{ page.image }}" alt="{{ page.title }}" class="main-post-image">
+
+    <div class="post-content" itemprop="reviewBody">
+        {{ content }}
+    </div>
+
+    <div class="download-section">
+        <h3>Download Links</h3>
+        <a href="#" class="download-btn">Download 480p</a>
+        <a href="#" class="download-btn hd">Download 720p</a>
+        <a href="#" class="download-btn fhd">Download 1080p</a>
+    </div>
+
+</article>
