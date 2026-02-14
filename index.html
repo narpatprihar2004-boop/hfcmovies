@@ -3,39 +3,41 @@ layout: default
 title: Home
 ---
 
-<div class="section-head"><i class="fas fa-fire" style="color:#ef4444"></i> Latest Updates</div>
+<div class="sec-head">🔥 Latest Updates</div>
 
 {% for post in paginator.posts %}
 <a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
     <img src="{{ post.image }}" class="mc-img" alt="poster" loading="lazy">
     <div class="mc-info">
         <h3 class="mc-title">{{ post.title }}</h3>
-        <div class="mc-tags">
-            {% if post.categories contains 'South' %}
-                <span class="tag tag-blue">South Hindi</span>
-            {% else %}
-                <span class="tag tag-blue">{{ post.quality }}</span>
-            {% endif %}
-            <span class="tag tag-gray">{{ post.year }}</span>
+        <div class="tag-row">
+            <span class="tag t-blue">{{ post.quality }}</span>
+            <span class="tag t-gray">{{ post.year }}</span>
         </div>
     </div>
 </a>
 {% endfor %}
 
-<div class="section-head" style="margin-top: 30px;"><i class="fas fa-folder" style="color:#f59e0b"></i> Browse Categories</div>
-
-<div class="folder-grid">
-    {% for category in site.categories %}
-    <a href="{{ site.baseurl }}/category/{{ category | first | slugify }}/" class="folder-item">
-        <i class="fas fa-folder-open"></i> {{ category | first | capitalize }}
+<div class="sec-head">📁 Browse Categories</div>
+<div class="cat-grid">
+    <a href="/south-indian/" class="cat-btn">
+        <i class="fas fa-film" style="color:#eab308"></i> South Indian
     </a>
-    {% endfor %}
+    <a href="/bollywood/" class="cat-btn">
+        <i class="fas fa-video" style="color:#22c55e"></i> Bollywood
+    </a>
+    <a href="/web-series/" class="cat-btn">
+        <i class="fas fa-tv" style="color:#ef4444"></i> Web Series
+    </a>
+    <a href="/dual-audio/" class="cat-btn">
+        <i class="fas fa-language" style="color:#3b82f6"></i> Dual Audio
+    </a>
 </div>
 
 {% if paginator.total_pages > 1 %}
-<div style="text-align: center; margin-top: 20px;">
+<div style="text-align: center; margin-top: 30px;">
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" style="background:var(--primary); color:white; padding:10px 25px; border-radius:50px; font-weight:bold; font-size:14px;">Next Page &rarr;</a>
+    <a href="{{ paginator.next_page_path }}" style="background:var(--primary); color:white; padding:10px 30px; border-radius:50px; font-weight:700;">Next Page &rarr;</a>
     {% endif %}
 </div>
 {% endif %}
