@@ -1,98 +1,162 @@
 ---
 layout: default
 ---
-<article class="post-box">
 
-    <div style="margin-bottom:15px; font-size:13px; font-weight:600;">
-        <a href="{{ site.baseurl }}/" style="color:var(--primary)">Home</a> / {{ page.year }}
-    </div>
-
-    <img src="{{ page.image }}" class="hero" alt="poster" loading="lazy">
-
+<div class="section-card">
+    <img src="{{ page.image }}" class="hero" alt="{{ page.title }} Poster">
+    
+    <div class="sec-title">🎬 Movie Info</div>
     <table class="info-tbl">
         <tr><td>Name</td><td>{{ page.title }}</td></tr>
-        <tr><td>Cast</td><td>{{ page.cast_names }}</td></tr>
-        <tr><td>IMDb</td><td>⭐ {{ page.imdb }}/10</td></tr>
+        <tr><td>Star Cast</td><td>{{ page.cast_names }}</td></tr>
+        <tr><td>IMDb Rating</td><td>⭐ {{ page.imdb }}/10</td></tr>
+        <tr><td>Audio</td><td>Hindi Dubbed (Dual Audio)</td></tr>
         <tr><td>Quality</td><td>{{ page.quality }}</td></tr>
     </table>
+</div>
 
-    <div class="sec-head">🤖 AI Storyline</div>
-    <div style="font-size:15px; color:#475569; margin-bottom:20px;">
+<div class="section-card">
+    <div class="sec-title">🤖 AI Storyline</div>
+    <div style="font-size:15px; color:#475569; line-height:1.7;">
         {{ content }}
     </div>
+</div>
 
-    <div class="sec-head">👥 Cast & Crew</div>
-    <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:10px;">
+<div class="maybe-box">
+    <div style="font-size:11px; font-weight:800; color:#64748b; letter-spacing:1px; margin-bottom:5px;">RECOMMENDED FOR YOU</div>
+    <a href="#" id="randomLink" class="mb-link">Loading Recommendation...</a>
+</div>
+
+<div class="section-card">
+    <div class="sec-title">💰 Box Office & Budget</div>
+    <div class="box-grid">
+        <div class="box-stat">
+            <div class="bs-val">{{ page.budget }}</div>
+            <div class="bs-label">Total Budget</div>
+        </div>
+        <div class="box-stat">
+            <div class="bs-val">{{ page.collection }}</div>
+            <div class="bs-label">Box Office</div>
+        </div>
+    </div>
+    <p style="font-size:12px; margin-top:10px; color:#94a3b8; text-align:center;">*Figures are estimated based on reports.</p>
+</div>
+
+<div class="section-card">
+    <div class="sec-title">👥 Star Cast</div>
+    <div style="display:flex; gap:12px; overflow-x:auto; padding-bottom:10px;">
         {% for c in page.cast_list %}
-        <div style="min-width:90px; text-align:center; border:1px solid #e2e8f0; padding:8px; border-radius:8px;">
-            <div style="font-size:12px; font-weight:700;">{{ c.name }}</div>
-            <div style="font-size:11px; color:#64748b;">{{ c.role }}</div>
+        <div style="min-width:110px; text-align:center; border:1px solid #e2e8f0; padding:10px; border-radius:8px; background:#f8fafc;">
+            <div style="font-size:13px; font-weight:700; color:#1e293b;">{{ c.name }}</div>
+            <div style="font-size:12px; color:#64748b; margin-top:2px;">as {{ c.role }}</div>
         </div>
         {% endfor %}
     </div>
+</div>
 
-    <div class="sec-head" style="margin-top:20px;">📰 Trending News</div>
+<div class="section-card">
+    <div class="sec-title">📰 Trending News</div>
     {% for n in page.news %}
     <div class="news-box">
         <div class="news-head">{{ n.source }}</div>
-        <p style="font-size:13px; margin:5px 0;">{{ n.summary }}</p>
-        <a href="{{ n.link }}" target="_blank" class="news-link">Read Full Story</a>
+        <p style="font-size:14px; margin:5px 0; color:#334155;">{{ n.summary }}</p>
+        {% if n.link %}
+        <a href="{{ n.link }}" target="_blank" class="news-link">Read Full Report &rarr;</a>
+        {% endif %}
     </div>
     {% endfor %}
+</div>
 
-    <div class="sec-head">💬 Audience Reaction</div>
+<div class="section-card">
+    <div class="sec-title">💬 Audience Reaction</div>
+    
     {% for comm in page.comments %}
     <div class="comm-box">
         <div class="av">{{ comm.user | slice: 0 }}</div>
-        <div style="flex:1">
-            <div style="font-size:13px; font-weight:700;">{{ comm.user }}</div>
-            <div style="font-size:13px; color:#334155;">{{ comm.text }}</div>
+        
+        <div style="flex:1;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-weight:700; font-size:14px; color:#0f172a;">
+                    {{ comm.user }}
+                    {% if comm.platform == 'facebook' %}
+                        <i class="fab fa-facebook" style="color:#1877F2; margin-left:5px;"></i>
+                    {% elsif comm.platform == 'instagram' %}
+                        <i class="fab fa-instagram" style="color:#E4405F; margin-left:5px;"></i>
+                    {% elsif comm.platform == 'twitter' %}
+                        <i class="fab fa-twitter" style="color:#1DA1F2; margin-left:5px;"></i>
+                    {% endif %}
+                </div>
+                
+                {% if comm.link %}
+                <a href="{{ comm.link }}" target="_blank" style="font-size:11px; color:var(--primary); font-weight:600; text-decoration:underline;">See Comment ↗</a>
+                {% endif %}
+            </div>
+
+            <div style="font-size:13px; color:#475569; margin-top:4px; line-height:1.4;">
+                {{ comm.text }}
+            </div>
         </div>
     </div>
     {% endfor %}
+</div>
 
-    <div class="dl-area">
-        <div class="warn">⚠️ IP PROTECTION: Do Not Enable Flight Mode.</div>
-        <p style="font-size:13px; color:#64748b; margin-bottom:15px;">Generating Secure Link...</p>
+<div class="section-card">
+    <div class="sec-title">❓ Frequently Asked Questions</div>
+    {% for faq in page.faqs %}
+    <div class="faq-item">
+        <div class="faq-q">Q: {{ faq.question }}</div>
+        <div class="faq-a">A: {{ faq.answer }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="section-card" style="border-top: 4px solid #22c55e;">
+    <div class="sec-title" style="border-left:none; padding-left:0; text-align:center;">🚀 Download Links</div>
+    
+    <div class="dl-card">
+        <div class="warn">⚠️ IP PROTECTION ACTIVE: Do not use Flight Mode.</div>
+        <p style="font-size:13px; color:#64748b; margin-bottom:15px;">Secure Link Generation in progress...</p>
         
-        <button id="dlBtn" class="main-btn" onclick="triggerApi()">Get Download Link</button>
+        <button id="dlBtn" class="main-btn" onclick="startTimer()">Get Download Link</button>
         
-        <div id="instruct" class="ss-box">
-            <p style="font-size:12px; color:red; font-weight:bold;">👇 Click this result:</p>
-            <img src="https://via.placeholder.com/350x60?text=WebSheru+Result" alt="guide">
+        <div id="instruct" class="screenshot-box">
+            <p style="font-size:12px; color:red; font-weight:bold; margin-bottom:5px;">👇 Click this result on Google:</p>
+            <img src="https://via.placeholder.com/350x60?text=WebSheru+Result" alt="guide" style="width:100%;">
         </div>
-
-        <button id="finalBtn" class="main-btn" style="display:none; background:#059669; margin-top:10px;" onclick="goSearch()">🔍 Search on Google</button>
-        <p id="stat" style="font-size:12px; margin-top:10px; display:none;"></p>
+        
+        <button id="finalBtn" class="main-btn" style="display:none; background:#16a34a; margin-top:10px;" onclick="goSearch()">🔍 Search on Google</button>
     </div>
-
-    <div style="margin-top:20px; background:#fffbeb; padding:10px; font-size:12px; text-align:center; border:1px solid #fcd34d; border-radius:6px; color:#92400e;">
-        Disclaimer: We do not host files. <a href="/contact/" style="text-decoration:underline;">Contact</a>.
-    </div>
-
-</article>
+</div>
 
 <script>
-    function triggerApi() {
+    // Random Post Script
+    fetch('{{ site.baseurl }}/search.json')
+        .then(r => r.json())
+        .then(data => {
+            const others = data.filter(d => d.url !== window.location.pathname);
+            if(others.length){
+                const random = others[Math.floor(Math.random() * others.length)];
+                const link = document.getElementById('randomLink');
+                link.innerText = "📺 " + random.title;
+                link.href = random.url;
+            }
+        });
+
+    // Download Timer Script
+    function startTimer() {
         const btn = document.getElementById('dlBtn');
-        const stat = document.getElementById('stat');
         const box = document.getElementById('instruct');
-        const fBtn = document.getElementById('finalBtn');
+        const fin = document.getElementById('finalBtn');
         let t = 5;
-
         btn.disabled = true;
-        stat.style.display = 'block';
-        stat.innerText = 'Verifying Session...';
-
         const timer = setInterval(() => {
             btn.innerText = `Please Wait ${t}s`;
             t--;
             if (t < 0) {
                 clearInterval(timer);
                 btn.style.display = 'none';
-                stat.innerText = '✔ Verified!';
                 box.style.display = 'block';
-                fBtn.style.display = 'block';
+                fin.style.display = 'block';
             }
         }, 1000);
     }
