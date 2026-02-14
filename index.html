@@ -3,63 +3,39 @@ layout: default
 title: Home
 ---
 
-<div class="section-head">🔥🔥 TRENDING UPDATES 🔥🔥</div>
+<div class="section-head"><i class="fas fa-fire" style="color:#ef4444"></i> Latest Updates</div>
 
-{% for post in site.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="movie-item">
-    <img src="{{ post.image }}" class="m-thumb" alt="poster" loading="lazy">
-    <div class="m-info">
-        <div class="m-title">{{ post.title }}</div>
-        
-        <div class="tag-row">
-            {% if post.tags contains 'South' %}
-                <span class="m-tag bg-blue">South Hindi Dubbed</span>
-            {% elsif post.tags contains 'Bollywood' %}
-                <span class="m-tag bg-green">Bollywood Movie</span>
+{% for post in paginator.posts %}
+<a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
+    <img src="{{ post.image }}" class="mc-img" alt="poster" loading="lazy">
+    <div class="mc-info">
+        <h3 class="mc-title">{{ post.title }}</h3>
+        <div class="mc-tags">
+            {% if post.categories contains 'South' %}
+                <span class="tag tag-blue">South Hindi</span>
             {% else %}
-                <span class="m-tag bg-red">{{ post.quality }}</span>
+                <span class="tag tag-blue">{{ post.quality }}</span>
             {% endif %}
-            <span class="m-tag bg-gray">{{ post.year }}</span>
+            <span class="tag tag-gray">{{ post.year }}</span>
         </div>
     </div>
 </a>
-{% else %}
-    <div style="padding:40px; text-align:center; background:white; border-bottom:1px solid #eee;">
-        <h3 style="color:red;">No Posts Found! 😭</h3>
-        <p style="font-size:12px; color:#555;">Check your _posts folder filename.</p>
-    </div>
 {% endfor %}
 
-<div class="section-head">📁 BROWSE FOLDERS</div>
+<div class="section-head" style="margin-top: 30px;"><i class="fas fa-folder" style="color:#f59e0b"></i> Browse Categories</div>
 
-<div class="folder-list">
-    <a href="/search/?q=South" class="folder-card">
-        <div class="f-icon"><i class="fas fa-folder"></i></div>
-        <div class="f-name">South Indian Hindi Dubbed</div>
-        <div class="f-arrow">❯</div>
+<div class="folder-grid">
+    {% for category in site.categories %}
+    <a href="{{ site.baseurl }}/category/{{ category | first | slugify }}/" class="folder-item">
+        <i class="fas fa-folder-open"></i> {{ category | first | capitalize }}
     </a>
-
-    <a href="/search/?q=Bollywood" class="folder-card">
-        <div class="f-icon"><i class="fas fa-folder" style="color:#28a745"></i></div>
-        <div class="f-name">Bollywood Movies</div>
-        <div class="f-arrow">❯</div>
-    </a>
-
-    <a href="/search/?q=Hollywood" class="folder-card">
-        <div class="f-icon"><i class="fas fa-folder" style="color:#dc3545"></i></div>
-        <div class="f-name">Hollywood Dual Audio</div>
-        <div class="f-arrow">❯</div>
-    </a>
-
-    <a href="/search/?q=WebSeries" class="folder-card">
-        <div class="f-icon"><i class="fas fa-folder" style="color:#e83e8c"></i></div>
-        <div class="f-name">Web Series (Complete)</div>
-        <div class="f-arrow">❯</div>
-    </a>
+    {% endfor %}
 </div>
 
-<div style="text-align:center; padding: 20px;">
+{% if paginator.total_pages > 1 %}
+<div style="text-align: center; margin-top: 20px;">
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="m-tag bg-blue" style="font-size:12px; padding:10px 30px;">Next Page >></a>
+    <a href="{{ paginator.next_page_path }}" style="background:var(--primary); color:white; padding:10px 25px; border-radius:50px; font-weight:bold; font-size:14px;">Next Page &rarr;</a>
     {% endif %}
 </div>
+{% endif %}
