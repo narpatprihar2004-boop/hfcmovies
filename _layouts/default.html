@@ -3,137 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
-    <meta name="theme-color" content="#ffffff">
     {% seo %}
+    <meta name="theme-color" content="#ffffff">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. ACCESSIBLE VARIABLES (High Contrast) --- */
+        /* --- 1. CORE VARIABLES (High Contrast for Accessibility) --- */
         :root {
-            --primary: #0056b3; /* Darker Blue for Contrast */
+            --primary: #2563eb; /* Professional Blue */
             --dark: #0f172a;
-            --light: #f8fafc;
+            --light: #f1f5f9;
             --white: #ffffff;
-            --text: #1e293b;    /* Dark Slate for readability */
-            --text-gray: #475569; /* Accessible Gray */
-            --border: #cbd5e1;
+            --text: #334155;
+            --border: #e2e8f0;
             --radius: 8px;
         }
 
         /* RESET */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--light); color: var(--text); padding-bottom: 50px; line-height: 1.6; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Manrope', sans-serif; }
+        body { background-color: var(--light); color: var(--text); padding-bottom: 40px; line-height: 1.6; }
         a { text-decoration: none; color: inherit; transition: 0.2s; }
         img { display: block; max-width: 100%; height: auto; }
-        button { cursor: pointer; }
 
-        /* --- HEADER (Nav Fix) --- */
+        /* --- HEADER --- */
         header {
             background: var(--white); border-bottom: 1px solid var(--border);
             padding: 15px 20px; text-align: center;
+            /* Sticky hata diya hai demand ke hisab se */
         }
-        .logo { 
-            font-size: 28px; font-weight: 900; color: var(--dark); 
-            letter-spacing: -1px; text-transform: uppercase; display: inline-block;
-        }
-        .logo span { color: #dc2626; } /* Red Accent */
+        .logo { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -1px; display:inline-block; }
+        .logo span { color: var(--primary); }
 
-        /* Search Bar */
-        .search-wrap {
+        /* SEARCH BAR */
+        .search-box {
             margin: 15px auto 0; max-width: 600px; display: flex;
-            background: #fff; border-radius: 50px; border: 2px solid var(--border);
+            background: #fff; border-radius: 50px; border: 1px solid #cbd5e1; overflow: hidden;
         }
-        .s-input { 
-            flex: 1; border: none; background: transparent; padding: 12px 20px; 
-            outline: none; font-size: 16px; color: var(--text);
-        }
-        .s-btn { 
-            background: var(--primary); color: white; border: none; padding: 0 25px; 
-            border-radius: 0 50px 50px 0; font-weight: 700; aria-label: "Search";
-        }
+        .s-input { flex: 1; border: none; padding: 12px 20px; outline: none; font-size: 15px; }
+        .s-btn { background: var(--primary); color: white; border: none; padding: 0 25px; font-weight: 700; font-size: 14px; }
 
         /* --- CONTAINER --- */
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
-        /* --- LIST STYLE (Home) --- */
+        /* --- HOME LIST --- */
         .sec-head { 
-            font-size: 15px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); 
-            margin: 30px 0 15px; border-left: 5px solid var(--primary); padding-left: 12px;
-            display: flex; align-items: center; justify-content: space-between;
+            font-size: 14px; font-weight: 800; text-transform: uppercase; color: #64748b; 
+            margin: 30px 0 15px; border-left: 4px solid var(--primary); padding-left: 10px;
+            display: flex; align-items: center; gap: 8px;
         }
 
         .movie-card {
-            display: flex; background: var(--white); padding: 12px; border-radius: var(--radius);
-            margin-bottom: 15px; border: 1px solid var(--border); 
-            align-items: flex-start; transition: transform 0.2s;
+            display: flex; background: var(--white); padding: 10px; border-radius: var(--radius);
+            margin-bottom: 15px; border: 1px solid var(--border);
+            align-items: center; transition: transform 0.2s;
         }
-        .movie-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .movie-card:hover { transform: translateY(-3px); border-color: var(--primary); }
 
-        .mc-img { 
-            width: 80px; height: 110px; object-fit: cover; border-radius: 6px; 
-            flex-shrink: 0; background: #e2e8f0; border: 1px solid var(--border);
-        }
+        .mc-img { width: 70px; height: 90px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #eee; }
         .mc-info { padding-left: 15px; flex: 1; }
-        .mc-title { 
-            font-size: 17px; font-weight: 700; color: var(--dark); 
-            line-height: 1.4; margin-bottom: 8px; 
-        }
+        .mc-title { font-size: 16px; font-weight: 700; color: var(--dark); line-height: 1.3; margin-bottom: 5px; }
         
-        .tag { 
-            font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; 
-            background: #eff6ff; color: var(--primary); display: inline-block;
+        .tag { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-right: 5px; }
+        .t-blue { background: #dbeafe; color: #1e40af; }
+        .t-gray { background: #f1f5f9; color: #475569; }
+
+        /* --- FOLDER LIST --- */
+        .folder-list { display: flex; flex-direction: column; gap: 10px; }
+        .folder-item {
+            background: white; padding: 15px; border-radius: var(--radius); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between; font-weight: 700; color: var(--dark);
         }
+        .folder-left { display: flex; align-items: center; gap: 10px; }
+        .folder-icon { color: #f59e0b; font-size: 20px; }
 
         /* --- POST PAGE --- */
-        .post-wrap { background: white; padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); }
-        
-        /* Back Button */
-        .top-back-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-weight: 700; color: var(--primary); margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .top-back-btn:hover { text-decoration: underline; }
+        .post-box { background: white; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border); }
+        .hero { width: 100%; border-radius: var(--radius); margin-bottom: 25px; border: 1px solid var(--border); }
 
         /* Table */
-        .info-tbl { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 15px; }
+        .info-tbl { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 14px; }
         .info-tbl td { padding: 12px; border-bottom: 1px solid var(--border); }
         .info-tbl tr:nth-child(odd) { background: #f8fafc; }
         .info-tbl td:first-child { font-weight: 700; width: 30%; color: var(--dark); }
 
-        /* Download Section */
-        .dl-zone { 
-            background: #f0f9ff; border: 2px dashed #0ea5e9; padding: 25px; 
-            border-radius: 12px; text-align: center; margin-top: 40px; 
+        /* News Box (Professional) */
+        .news-card {
+            background: #fff; border: 1px solid var(--border); padding: 15px; 
+            border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ef4444;
         }
-        .flight-warn {
-            background: #fef2f2; color: #b91c1c; font-size: 13px; font-weight: 700;
-            padding: 10px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #fecaca;
-        }
+        .news-src { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 5px; }
+        .news-link { color: var(--primary); font-weight: 700; font-size: 13px; text-decoration: underline; display: block; margin-top: 5px; }
+
+        /* Comments */
+        .comm-box { display: flex; gap: 12px; margin-bottom: 15px; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; }
+        .u-av { width: 35px; height: 35px; background: #cbd5e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; flex-shrink: 0; }
+
+        /* Download Zone */
+        .dl-zone { background: #eff6ff; border: 2px dashed #3b82f6; padding: 20px; border-radius: 12px; text-align: center; margin-top: 30px; }
         .main-btn {
-            background: #16a34a; color: white; border: none; padding: 16px 30px; width: 100%; 
-            border-radius: 8px; font-size: 16px; font-weight: 800; 
-            box-shadow: 0 4px 0 #15803d; transition: 0.2s;
+            background: var(--primary); color: white; border: none; padding: 15px 30px; width: 100%; border-radius: 50px;
+            font-size: 16px; font-weight: 800; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); transition: 0.3s;
         }
-        .main-btn:active { transform: translateY(4px); box-shadow: none; }
         .main-btn:disabled { background: #94a3b8; box-shadow: none; cursor: not-allowed; }
 
-        /* Screenshot Box */
-        .instruction-box {
-            display: none; margin: 20px 0; border: 2px solid #fbbf24; 
-            padding: 10px; background: #fffbeb; border-radius: 8px;
-        }
+        /* Back Button */
+        .back-btn-area { text-align: center; margin-top: 30px; }
+        .back-btn { background: #1e293b; color: white; padding: 10px 25px; border-radius: 50px; font-size: 14px; font-weight: 600; }
 
         /* Footer */
-        footer { margin-top: 50px; background: white; border-top: 1px solid var(--border); padding: 40px 20px; text-align: center; }
-        .f-nav a { margin: 0 12px; font-weight: 600; font-size: 14px; color: var(--text-gray); }
-        .f-nav a:hover { color: var(--primary); }
-
+        footer { margin-top: 50px; background: white; border-top: 1px solid var(--border); padding: 30px 20px; text-align: center; }
+        .f-nav a { margin: 0 10px; font-weight: 600; font-size: 13px; color: #475569; }
     </style>
 </head>
 <body>
@@ -141,8 +124,8 @@
     <header>
         <a href="{{ site.baseurl }}/" class="logo">HFC<span>MOVIES</span></a>
         
-        <div class="search-wrap">
-            <input type="text" class="s-input" placeholder="Search movies, series..." aria-label="Search">
+        <div class="search-box">
+            <input type="text" id="searchInput" class="s-input" placeholder="Search movies, news...">
             <button class="s-btn">GO</button>
         </div>
     </header>
@@ -153,12 +136,12 @@
 
     <footer>
         <div class="f-nav">
-            <a href="/about/">About</a>
+            <a href="/about/">About Us</a>
             <a href="/contact/">Contact</a>
-            <a href="/privacy/">Privacy</a>
+            <a href="/privacy/">Privacy Policy</a>
             <a href="/dmca/">DMCA</a>
         </div>
-        <p style="margin-top: 20px; font-size: 12px; color: #94a3b8;">&copy; 2026 hfcmovies. All Rights Reserved.</p>
+        <p style="margin-top: 15px; font-size: 12px; color: #94a3b8;">&copy; 2026 hfcmovies. All Rights Reserved.</p>
     </footer>
 
 </body>
