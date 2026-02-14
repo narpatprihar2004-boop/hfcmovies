@@ -1,113 +1,128 @@
 ---
 layout: default
 ---
-<article class="post-box">
+<article class="post-wrap">
 
-    <img src="{{ page.image }}" class="hero">
+    <div class="nav-bar">
+        <div class="back-link" onclick="window.location.href='/'">
+            <i class="fas fa-arrow-left"></i> Home
+        </div>
+        <div>{{ page.year }}</div>
+    </div>
+
+    <img src="{{ page.image }}" class="hero-img" alt="{{ page.title }} Poster" loading="lazy">
 
     <table class="info-tbl">
-        <tr><td>Name</td><td>{{ page.title }}</td></tr>
-        <tr><td>Cast</td><td>{{ page.cast_names }}</td></tr>
-        <tr><td>IMDb</td><td>⭐ {{ page.imdb }}/10</td></tr>
-        <tr><td>Quality</td><td>{{ page.quality }}</td></tr>
+        <tr><td>Movie</td><td>{{ page.title }}</td></tr>
+        <tr><td>Star Cast</td><td>{{ page.cast_names }}</td></tr>
+        <tr><td>IMDb Rating</td><td>⭐ {{ page.imdb }}/10</td></tr>
+        <tr><td>Video Quality</td><td>{{ page.quality }}</td></tr>
     </table>
 
     <div class="sec-head">🤖 AI Storyline</div>
-    <div style="font-size:15px; color:#475569; margin-bottom:20px;">
+    <div style="font-size:15px; color:#374151; margin-bottom:25px;">
         {{ content }}
     </div>
 
-    <div style="background:#f1f5f9; padding:12px; border-radius:8px; margin-bottom:25px; border:1px solid #e2e8f0;">
-        <strong>Maybe You Like:</strong> 
-        {% assign randomPost = site.posts | sample: 1 %}
-        {% for p in randomPost %}
-        <a href="{{ p.url }}" style="color:var(--primary); font-weight:700;">{{ p.title }}</a>
+    <div class="sec-head">👥 Cast & Crew</div>
+    <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; margin-bottom:20px;">
+        {% for c in page.cast_list %}
+        <div style="min-width:100px; text-align:center; border:1px solid #e5e7eb; padding:8px; border-radius:8px;">
+            <div style="font-size:12px; font-weight:700;">{{ c.name }}</div>
+            <div style="font-size:11px; color:#6b7280;">{{ c.role }}</div>
+        </div>
         {% endfor %}
     </div>
 
     <div class="sec-head">📰 Trending News</div>
     {% for n in page.news %}
-    <div class="news-card">
-        <div class="news-src">{{ n.source }}</div>
-        <div style="font-size:13px; margin:5px 0;">{{ n.summary }}</div>
-        
-        {% if n.link and n.link != "#" %}
-            <a href="{{ n.link }}" target="_blank" class="news-link">Read Full Story &rarr;</a>
-        {% else %}
-            <span style="font-size:11px; color:#94a3b8;">(Source Link Unavailable)</span>
+    <div class="news-box">
+        <div class="news-head">{{ n.source }}</div>
+        <p style="font-size:13px; margin:5px 0;">{{ n.summary }}</p>
+        {% if n.link %}
+        <a href="{{ n.link }}" target="_blank" class="news-link">Read Full Report &rarr;</a>
         {% endif %}
     </div>
     {% endfor %}
 
-    <div class="sec-head">💬 Top Comments</div>
+    <div class="sec-head">💬 Audience Reaction</div>
     {% for comm in page.comments %}
-    <div class="comm-box">
-        <div class="u-av">{{ comm.user | slice: 0 }}</div>
+    <div class="comm-row">
+        <div class="u-img">{{ comm.user | slice: 0 }}</div>
         <div style="flex:1">
-            <div style="font-weight:700; font-size:13px; display:flex; justify-content:space-between;">
-                {{ comm.user }} 
-                <span><i class="fab fa-{{ comm.platform }}" style="color:#94a3b8"></i></span>
+            <div style="font-size:13px; font-weight:700; display:flex; justify-content:space-between;">
+                {{ comm.user }}
+                <span><i class="fab fa-{{ comm.platform }}" style="color:#9ca3af"></i></span>
             </div>
-            <div style="font-size:13px; color:#334155; margin-top:2px;">{{ comm.text }}</div>
-            
-            {% if comm.link %}
-            <a href="{{ comm.link }}" style="font-size:11px; color:var(--primary); text-decoration:underline;">See Comment</a>
-            {% endif %}
+            <p style="font-size:13px; color:#4b5563;">{{ comm.text }}</p>
         </div>
     </div>
     {% endfor %}
 
-    <div class="api-zone">
-        <h3 style="font-size:16px; margin-bottom:10px;">🚀 Download {{ page.title }}</h3>
+    <div class="sec-head">📺 Where to Watch</div>
+    <div style="display:flex; gap:10px; margin-bottom:20px;">
+        <div style="flex:1; border:1px solid #e5e7eb; padding:10px; text-align:center; font-weight:700; font-size:12px; border-radius:6px;">Netflix</div>
+        <div style="flex:1; border:1px solid #e5e7eb; padding:10px; text-align:center; font-weight:700; font-size:12px; border-radius:6px;">Prime Video</div>
+        <div style="flex:1; border:1px solid #e5e7eb; padding:10px; text-align:center; font-weight:700; font-size:12px; border-radius:6px;">JioCinema</div>
+    </div>
+
+    <div class="dl-card">
+        <div class="warn-strip">⚠️ WARNING: Do Not Enable Flight Mode. IP is Monitored.</div>
+        <p style="font-size:13px; color:#4b5563; margin-bottom:15px;">Secure Link Generation in progress...</p>
         
-        <button id="initBtn" class="main-btn" onclick="callApi()">Get Link</button>
+        <button id="dlBtn" class="action-btn" onclick="triggerApi()">Get Download Link</button>
         
-        <div id="instructionBox" class="screenshot-box">
-            <p style="font-size:12px; font-weight:bold; color:#ef4444; margin-bottom:5px;">👇 Click on this result in Google:</p>
-            <img src="https://via.placeholder.com/400x100?text=Click+Result:+websheru.online" class="screenshot-img" alt="Instruction">
+        <div id="instructImg" class="screenshot-box">
+            <p style="font-size:12px; color:red; font-weight:bold; margin-bottom:5px;">👇 Click this result on Google:</p>
+            <img src="https://via.placeholder.com/350x100?text=WebSheru+Official+Result" alt="Instruction">
         </div>
 
-        <button id="finalBtn" class="main-btn" style="display:none; background:#059669;" onclick="goSearch()">🔍 Search on Google</button>
+        <button id="finalBtn" class="action-btn" style="display:none; background:#059669; margin-top:10px;" onclick="goSearch()">🔍 Search on Google</button>
         
-        <p id="statusMsg" style="font-size:13px; margin-top:10px; display:none; color:#64748b;"></p>
+        <p id="status" style="font-size:12px; color:#6b7280; margin-top:10px; display:none;"></p>
     </div>
 
     <div style="margin-top:30px; background:#fffbeb; color:#92400e; padding:15px; border-radius:8px; font-size:12px; text-align:center; border:1px solid #fcd34d;">
-        We do not host files. <a href="/contact/" style="text-decoration:underline; font-weight:bold;">Contact for Removal</a>.
+        Disclaimer: We do not host any files. <a href="/contact/" style="text-decoration:underline;">Contact for Removal</a>.
+    </div>
+
+    <div class="back-link" onclick="window.location.href='/'" style="justify-content:center; margin-top:20px; padding:10px; background:#f3f4f6; border-radius:50px;">
+        <i class="fas fa-home"></i> Go Back Home
     </div>
 
 </article>
 
 <script>
-    function callApi() {
-        const btn = document.getElementById('initBtn');
-        const msg = document.getElementById('statusMsg');
-        const box = document.getElementById('instructionBox');
+    function triggerApi() {
+        const btn = document.getElementById('dlBtn');
+        const stat = document.getElementById('status');
+        const imgBox = document.getElementById('instructImg');
         const finalBtn = document.getElementById('finalBtn');
-        
-        // Disable button
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Checking IP...';
-        msg.style.display = 'block';
-        msg.innerText = "Connecting to Secure API...";
+        let t = 5;
 
-        // Simulate API Call (You can replace fetch with real URL)
-        console.log("API Call: IP Check + Movie: {{ page.title }}");
-        
-        setTimeout(() => {
-            msg.innerHTML = "<span style='color:green'>✔ Session Verified!</span>";
-            btn.style.display = 'none'; // Hide first button
-            
-            // Show Instruction
-            box.style.display = 'block';
-            
-            // Show Final Button
-            finalBtn.style.display = 'block';
-        }, 2000); // 2 Seconds Fake Loading
+        btn.disabled = true;
+        stat.style.display = 'block';
+        stat.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Establishing Secure Connection...';
+
+        const timer = setInterval(() => {
+            btn.innerText = `Please Wait ${t}s`;
+            t--;
+
+            if (t < 0) {
+                clearInterval(timer);
+                btn.style.display = 'none'; // Hide first button
+                stat.innerHTML = "<span style='color:green'>✔ Connection Established!</span>";
+                
+                // Show Steps
+                imgBox.style.display = 'block';
+                finalBtn.style.display = 'block';
+            }
+        }, 1000);
     }
 
     function goSearch() {
-        const query = "site:websheru.online {{ page.title }}";
-        window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
+        // Smart Google Search Query
+        const q = "site:websheru.online {{ page.title }} download";
+        window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(q);
     }
 </script>
