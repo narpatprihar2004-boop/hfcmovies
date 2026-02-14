@@ -15,14 +15,20 @@ layout: default
     }
     .box-icon { color: #2563eb; }
 
-    /* 2. Hero & Info Table */
-    .hero-img { width: 100%; border-radius: 8px; margin-bottom: 20px; }
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13px; }
-    .info-item { background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; }
-    .info-label { font-weight: 700; color: #64748b; display: block; font-size: 11px; text-transform: uppercase; }
-    .info-val { font-weight: 600; color: #0f172a; }
+    /* 2. Hero Image */
+    .hero-img { width: 100%; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
 
-    /* 3. Box Office Dashboard (The Cool Part) */
+    /* 3. Info Table (STRIPED) */
+    .info-tbl { width: 100%; border-collapse: collapse; font-size: 14px; color: #334155; }
+    .info-tbl td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
+    .info-tbl tr:nth-child(odd) { background: #f8fafc; }
+    .info-tbl td:first-child { font-weight: 700; width: 35%; color: #64748b; }
+
+    /* 4. Cast Table (Clickable) */
+    .cast-link { color: #2563eb; font-weight: 600; text-decoration: none; }
+    .cast-link:hover { text-decoration: underline; }
+
+    /* 5. Box Office Dashboard */
     .bo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .bo-card { 
         text-align: center; padding: 15px 10px; border-radius: 8px; 
@@ -31,7 +37,16 @@ layout: default
     .bo-val { font-size: 18px; font-weight: 800; color: #15803d; display: block; }
     .bo-label { font-size: 11px; font-weight: 700; color: #166534; text-transform: uppercase; }
     
-    /* 4. FAQ Accordion (Google Style) */
+    /* 6. Comments Box */
+    .comm-item { display: flex; gap: 12px; border-bottom: 1px solid #f1f5f9; padding: 12px 0; }
+    .comm-avatar { 
+        width: 35px; height: 35px; background: #cbd5e1; border-radius: 50%; 
+        display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; flex-shrink: 0;
+    }
+    .comm-user { font-weight: 700; font-size: 13px; color: #0f172a; margin-bottom: 2px; }
+    .comm-text { font-size: 13px; color: #475569; line-height: 1.4; }
+
+    /* 7. FAQ Accordion */
     details { 
         background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; 
         margin-bottom: 8px; overflow: hidden; transition: 0.2s;
@@ -45,18 +60,7 @@ layout: default
     details[open] summary::after { content: '-'; color: #2563eb; }
     .faq-ans { padding: 15px; font-size: 14px; color: #475569; line-height: 1.6; border-top: 1px solid #e2e8f0; }
 
-    /* 5. Story/Review Text */
-    .story-text { font-size: 16px; line-height: 1.7; color: #334155; }
-    .story-text h2 { font-size: 18px; margin: 20px 0 10px; color: #0f172a; }
-
-    /* 6. Cast Scroll */
-    .cast-scroller { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
-    .cast-chip { 
-        min-width: 120px; text-align: center; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; 
-        background: white; flex-shrink: 0;
-    }
-
-    /* 7. Download API Zone */
+    /* 8. Download API Zone */
     .dl-box { 
         background: #eff6ff; border: 2px dashed #3b82f6; padding: 25px; border-radius: 12px; 
         text-align: center; margin-top: 30px; 
@@ -66,7 +70,7 @@ layout: default
         border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer;
     }
     
-    /* Footer Nav */
+    /* Breadcrumb */
     .nav-breadcrumb { margin-bottom: 20px; font-size: 13px; color: #64748b; font-weight: 500; }
     .nav-breadcrumb a { color: #2563eb; }
 </style>
@@ -80,14 +84,30 @@ layout: default
     
     <div class="box-title"><i class="fas fa-film box-icon"></i> Movie Details</div>
     
-    <div class="info-grid">
-        <div class="info-item"><span class="info-label">Title</span><span class="info-val">{{ page.title }}</span></div>
-        <div class="info-item"><span class="info-label">Star Cast</span><span class="info-val">{{ page.cast_names | truncate: 15 }}</span></div>
-        <div class="info-item"><span class="info-label">IMDb Rating</span><span class="info-val">⭐ {{ page.imdb }}/10</span></div>
-        <div class="info-item"><span class="info-label">Quality</span><span class="info-val" style="color:#e11d48">{{ page.quality }}</span></div>
-        <div class="info-item"><span class="info-label">Language</span><span class="info-val">Hindi (Org)</span></div>
-        <div class="info-item"><span class="info-label">Release</span><span class="info-val">{{ page.date | date: "%Y" }}</span></div>
-    </div>
+    <table class="info-tbl">
+        <tr><td>Title</td><td>{{ page.title }}</td></tr>
+        <tr><td>Star Cast</td><td>{{ page.cast_names | truncate: 30 }}</td></tr>
+        <tr><td>IMDb Rating</td><td>⭐ {{ page.imdb }}/10</td></tr>
+        <tr><td>Quality</td><td style="color:#e11d48; font-weight:700;">{{ page.quality }}</td></tr>
+        <tr><td>Language</td><td>Hindi (Org) + English</td></tr>
+        <tr><td>Release Date</td><td>{{ page.date | date: "%d %b %Y" }}</td></tr>
+    </table>
+</article>
+
+<article class="content-box">
+    <div class="box-title"><i class="fas fa-users box-icon"></i> Cast & Crew</div>
+    <table class="info-tbl">
+        {% for c in page.cast_list %}
+        <tr>
+            <td style="width:50%;">
+                <a href="https://www.google.com/search?q={{ c.name }}+actor" target="_blank" class="cast-link">
+                    {{ c.name }} <i class="fas fa-external-link-alt" style="font-size:10px; color:#94a3b8;"></i>
+                </a>
+            </td>
+            <td style="color:#64748b; font-size:13px;">as {{ c.role }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </article>
 
 {% if page.box_office %}
@@ -116,21 +136,40 @@ layout: default
 
 <article class="content-box">
     <div class="box-title"><i class="fas fa-book-open box-icon"></i> Story & Review</div>
-    <div class="story-text">
+    <div style="font-size:15px; line-height:1.7; color:#334155;">
         {{ content }}
     </div>
 </article>
 
+{% if page.news %}
 <article class="content-box">
-    <div class="box-title"><i class="fas fa-users box-icon"></i> Cast & Crew</div>
-    <div class="cast-scroller">
-        {% for c in page.cast_list %}
-        <div class="cast-chip">
-            <div style="font-weight:700; font-size:13px; color:#0f172a">{{ c.name }}</div>
-            <div style="font-size:11px; color:#64748b">{{ c.role }}</div>
-        </div>
-        {% endfor %}
+    <div class="box-title"><i class="fas fa-newspaper box-icon"></i> Trending News</div>
+    {% for n in page.news %}
+    <div style="background:#f8fafc; padding:10px; border-radius:6px; margin-bottom:10px; border-left:3px solid #ef4444;">
+        <div style="font-size:11px; font-weight:800; color:#ef4444; text-transform:uppercase;">{{ n.source }}</div>
+        <p style="font-size:13px; margin:5px 0;">{{ n.summary }}</p>
+        {% if n.link %}
+        <a href="{{ n.link }}" target="_blank" style="font-size:12px; color:#2563eb; text-decoration:underline;">Read More</a>
+        {% endif %}
     </div>
+    {% endfor %}
+</article>
+{% endif %}
+
+<article class="content-box">
+    <div class="box-title"><i class="fas fa-comments box-icon"></i> Audience Reactions</div>
+    {% for comm in page.comments %}
+    <div class="comm-item">
+        <div class="comm-avatar">{{ comm.user | slice: 0 }}</div>
+        <div>
+            <div class="comm-user">
+                {{ comm.user }} 
+                <span style="color:#94a3b8; font-weight:400; font-size:12px;">on {{ comm.platform }}</span>
+            </div>
+            <div class="comm-text">{{ comm.text }}</div>
+        </div>
+    </div>
+    {% endfor %}
 </article>
 
 {% if page.faqs %}
@@ -145,28 +184,18 @@ layout: default
 </article>
 {% endif %}
 
-{% if page.news %}
-<article class="content-box">
-    <div class="box-title"><i class="fas fa-newspaper box-icon"></i> Trending News</div>
-    {% for n in page.news %}
-    <div style="background:#f8fafc; padding:10px; border-radius:6px; margin-bottom:10px; border-left:3px solid #ef4444;">
-        <div style="font-size:11px; font-weight:800; color:#ef4444; text-transform:uppercase;">{{ n.source }}</div>
-        <p style="font-size:13px; margin:5px 0;">{{ n.summary }}</p>
-    </div>
-    {% endfor %}
-</article>
-{% endif %}
-
 <div class="dl-box">
     <div style="font-size:12px; font-weight:700; color:#b91c1c; background:#fef2f2; padding:8px; border-radius:6px; margin-bottom:15px;">
         ⚠️ IMPORTANT: Do NOT enable Flight Mode. Link tracks IP.
     </div>
     
     <button id="dlBtn" class="btn-main" onclick="startTimer()">Get Download Link</button>
+    
     <div id="instruct" style="display:none; margin-top:15px; border:1px solid #cbd5e1; padding:5px; background:white;">
         <p style="font-size:12px; color:red; font-weight:bold;">👇 Click result on Google:</p>
         <img src="https://via.placeholder.com/350x50?text=WebSheru+Official" style="width:100%;">
     </div>
+    
     <button id="finalBtn" class="btn-main" style="display:none; background:#16a34a; margin-top:10px;" onclick="goSearch()">🔍 Search on Google</button>
 </div>
 
@@ -182,7 +211,6 @@ layout: default
         let t = 5;
         
         btn.disabled = true;
-        btn.innerText = "Processing...";
         
         const timer = setInterval(() => {
             btn.innerText = `Please Wait ${t}s`;
