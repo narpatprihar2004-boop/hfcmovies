@@ -3,41 +3,39 @@ layout: default
 title: Home
 ---
 
-<div class="sec-head">🔥 Latest Updates</div>
+<div class="sec-head"><i class="fas fa-bolt" style="color:#eab308"></i> Latest Updates</div>
 
 {% for post in paginator.posts %}
-<a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
-    <img src="{{ post.image }}" class="mc-img" alt="poster" loading="lazy">
+<a href="{{ site.baseurl }}{{ post.url }}" class="movie-card" aria-label="{{ post.title }}">
+    <img src="{{ post.image }}" class="mc-img" alt="{{ post.title }} poster" loading="lazy" width="65" height="85">
     <div class="mc-info">
         <h3 class="mc-title">{{ post.title }}</h3>
-        <div class="tag-row">
-            <span class="tag t-blue">{{ post.quality }}</span>
-            <span class="tag t-gray">{{ post.year }}</span>
+        <div>
+            {% if post.tags contains 'South' %}
+                <span class="pill p-qual" style="background:#dbeafe; color:#1e40af">South Hindi</span>
+            {% else %}
+                <span class="pill p-qual">{{ post.quality }}</span>
+            {% endif %}
+            <span class="pill p-year">{{ post.year }}</span>
         </div>
     </div>
 </a>
 {% endfor %}
 
-<div class="sec-head">📁 Browse Categories</div>
-<div class="cat-grid">
-    <a href="/south-indian/" class="cat-btn">
-        <i class="fas fa-film" style="color:#eab308"></i> South Indian
+<div class="sec-head" style="margin-top:30px;"><i class="fas fa-folder-open" style="color:#3b82f6"></i> Browse Categories</div>
+
+<div class="folder-list">
+    {% for category in site.categories %}
+    <a href="{{ site.baseurl }}/category/{{ category | first | slugify }}/" class="folder-item">
+        <i class="fas fa-folder"></i> {{ category | first | capitalize }} Movies
     </a>
-    <a href="/bollywood/" class="cat-btn">
-        <i class="fas fa-video" style="color:#22c55e"></i> Bollywood
-    </a>
-    <a href="/web-series/" class="cat-btn">
-        <i class="fas fa-tv" style="color:#ef4444"></i> Web Series
-    </a>
-    <a href="/dual-audio/" class="cat-btn">
-        <i class="fas fa-language" style="color:#3b82f6"></i> Dual Audio
-    </a>
+    {% endfor %}
 </div>
 
 {% if paginator.total_pages > 1 %}
-<div style="text-align: center; margin-top: 30px;">
+<div style="text-align: center; margin-top: 25px;">
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" style="background:var(--primary); color:white; padding:10px 30px; border-radius:50px; font-weight:700;">Next Page &rarr;</a>
+    <a href="{{ paginator.next_page_path }}" style="background:var(--primary); color:white; padding:10px 30px; border-radius:50px; font-weight:700; font-size:14px;">Next Page &rarr;</a>
     {% endif %}
 </div>
 {% endif %}
