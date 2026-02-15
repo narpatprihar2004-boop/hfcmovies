@@ -1,5 +1,5 @@
 ---
-layout: defolt 
+layout: default 
 title: DMCA Disclaimer
 permalink: /dmca/
 ---
