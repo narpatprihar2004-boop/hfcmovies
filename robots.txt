@@ -1,0 +1,8 @@
+---
+layout: null
+---
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: {{ site.url }}/sitemap.xml
