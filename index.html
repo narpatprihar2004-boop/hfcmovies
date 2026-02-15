@@ -4,13 +4,13 @@ title: Home
 ---
 
 <div class="sec-head">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#ef4444" stroke="none"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-5-6.33-5-6.33S1 10.62 1 12a2.5 2.5 0 002.5 2.5c2.38 0 2.5-2.5 5-2.5zm10.5-9c-2.8 0-8 6.33-8 6.33S6 13.62 6 15a5.5 5.5 0 005.5 5.5c3.8 0 4.5-5.5 9-5.5a4.5 4.5 0 004.5-4.5c0-3.38-6-9-6-9z"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#ef4444" stroke="none"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-5-6.33-5-6.33S1 10.62 1 12a2.5 2.5 0 002.5 2.5c2.38 0 2.5-2.5 5-2.5zm10.5-9c-2.8 0-8 6.33-8 6.33S6 13.62 6 15a5.5 5.5 0 005.5 5.5c3.8 0 4.5-5.5 9-5.5a4.5 4.5 0 004.5-4.5c0-3.38-6-9-6-9z"/></svg>
     Latest Updates
 </div>
 
 {% for post in paginator.posts %}
 <a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
-    <img src="{{ post.image }}" class="mc-img" alt="poster" loading="lazy" width="60" height="80">
+    <img src="{{ post.image }}" class="mc-img" alt="{{ post.title }}" loading="lazy" width="60" height="80">
     <div class="mc-info">
         <h3 class="mc-title">{{ post.title }}</h3>
         <div>
@@ -22,17 +22,32 @@ title: Home
 {% endfor %}
 
 <div class="sec-head" style="margin-top:30px;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b" stroke="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
     Browse Categories
 </div>
 
 <div class="folder-grid">
-    {% for category in site.categories %}
-    <a href="{{ site.baseurl }}/category/{{ category | first | slugify }}/" class="folder-item">
-        <svg class="folder-icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-        {{ category | first | capitalize }}
+    
+    <a href="{{ site.baseurl }}/category/south/" class="folder-item">
+        <svg class="folder-icon" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path></svg>
+        South Indian
     </a>
-    {% endfor %}
+
+    <a href="{{ site.baseurl }}/category/bollywood/" class="folder-item">
+        <svg class="folder-icon" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path></svg>
+        Bollywood
+    </a>
+
+    <a href="{{ site.baseurl }}/category/action/" class="folder-item">
+        <svg class="folder-icon" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path></svg>
+        Action Movies
+    </a>
+    
+    <a href="{{ site.baseurl }}/category/web-series/" class="folder-item">
+        <svg class="folder-icon" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path></svg>
+        Web Series
+    </a>
+
 </div>
 
 {% if paginator.total_pages > 1 %}
