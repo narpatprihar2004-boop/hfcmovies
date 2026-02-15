@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<div class="sec-head" style="margin-top:20px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#f59e0b" stroke="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    {{ page.title }} Collection
+</div>
+
+<div class="category-container">
+    {% assign has_posts = false %}
+    
+    {% for post in site.posts %}
+        {% if post.tags contains page.tag_filter %}
+            {% assign has_posts = true %}
+            
+            <a href="{{ site.baseurl }}{{ post.url }}" class="movie-card">
+                <img src="{{ post.image }}" class="mc-img" alt="{{ post.title }}" loading="lazy" width="65" height="85">
+                <div class="mc-info">
+                    <h3 class="mc-title">{{ post.title }}</h3>
+                    <div class="tag-row">
+                        <span class="pill p-blue">{{ post.quality }}</span>
+                        <span class="pill p-gray">{{ post.year }}</span>
+                        <span class="pill" style="background:#fff7ed; color:#c2410c">{{ page.tag_filter }}</span>
+                    </div>
+                </div>
+            </a>
+            
+        {% endif %}
+    {% endfor %}
+
+    {% if has_posts == false %}
+    <div style="text-align:center; padding:40px; background:white; border-radius:8px; border:1px solid #e2e8f0;">
+        <p style="font-size:40px;">📂</p>
+        <h3 style="color:#64748b;">No Movies Found in {{ page.title }}</h3>
+        <p style="font-size:12px; color:#94a3b8;">Add "tags: [{{ page.tag_filter }}]" to your posts.</p>
+        <a href="/" style="display:inline-block; margin-top:15px; background:var(--primary); color:white; padding:10px 20px; border-radius:50px; font-weight:700; font-size:13px;">Go Home</a>
+    </div>
+    {% endif %}
+
+</div>
+
+<div style="text-align:center; margin-top:30px;">
+    <a href="/" style="font-size:13px; font-weight:600; color:#64748b; background:white; padding:10px 20px; border-radius:50px; border:1px solid #e2e8f0;">
+        &larr; Back to All Categories
+    </a>
+</div>
